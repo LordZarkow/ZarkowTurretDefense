@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3355522143
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: turrets
+      Dependencies: {}

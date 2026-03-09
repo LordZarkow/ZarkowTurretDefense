@@ -1,0 +1,174 @@
+[
+  {
+    "name": "$piece_lightstick",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LightStick.prefab",
+    "description": "$piece_lightstick_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Wood",
+        "amount": 2
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_lightstick",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LightStick_Red.prefab",
+    "description": "$piece_lightstick_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Wood",
+        "amount": 2
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_lightstick",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LightStick_Blue.prefab",
+    "description": "$piece_lightstick_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Wood",
+        "amount": 2
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_small_spotlight",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/SmallSpotlight.prefab",
+    "description": "$piece_small_spotlight_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 1
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_spotlight_tower",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/SpotlightTower.prefab",
+    "description": "$piece_spotlight_tower_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 3
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_tall_spotlight_tower",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/TallSpotlightTower.prefab",
+    "description": "$piece_tall_spotlight_tower_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 5
+      },
+      {
+        "item": "GreydwarfEye",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_laying_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LayingIronStructure.prefab",
+    "description": "$piece_laying_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "name": "$piece_standing_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/StandingIronStructure.prefab",
+    "description": "$piece_standing_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 5
+      }
+    ]
+  },
+  {
+    "name": "$piece_floating_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/FloatingIronStructure.prefab",
+    "description": "$piece_floating_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": false,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 5
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  }
+]

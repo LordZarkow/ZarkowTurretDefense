@@ -1,0 +1,777 @@
+﻿[
+  {
+    "name": "$piece_signal_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/SignalTurret.prefab",
+    "description": "$piece_signal_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "SignalTurret",
+    "fireInterval": 18.0,
+    "damage": 0.0,
+    "range": 20,
+    "resources": [
+      {
+        "item": "Resin",
+        "amount": 10
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_spotlight_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/SpotlightTurret.prefab",
+    "description": "$piece_spotlight_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "InertTurret",
+    "fireInterval": 1.0,
+    "damage": 0.0,
+    "range": 30,
+    "resources": [
+      {
+        "item": "Resin",
+        "amount": 10
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_mine_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/MineTurret.prefab",
+    "description": "$piece_mine_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "MineTurret",
+    "fireInterval": 3.0,
+    "range": 8,
+    "damageRadius": 8,
+    "rangedPoisonDamage": 20.0,
+    "uniformDamageThroughDamageRadius": true,
+    "resources": [
+      {
+        "item": "Pukeberries",
+        "amount": 2
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_electricity_mine_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/ElectricityMineTurret.prefab",
+    "description": "$piece_electricity_mine_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "MineTurret",
+    "fireInterval": 1.0,
+    "range": 6,
+    "damageRadius": 6,
+    "rangedLightningDamage": 10.0,
+    "uniformDamageThroughDamageRadius": true,
+    "resources": [
+      {
+        "item": "TrophyHatchling",
+        "amount": 1
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_light_turret_mki",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LightTurret.prefab",
+    "description": "$piece_light_turret_mki_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "LightGun",
+    "fireInterval": 0.40,
+    "bluntDamage": 0.5,
+    "pierceDamage": 1,
+    "fireDamage": 1,
+    "range": 20,
+    "resources": [
+      {
+        "item": "Flint",
+        "amount": 2
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_light_turret_mkii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LightTurret_MkII.prefab",
+    "description": "$piece_light_turret_mkii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": true,
+    "type": "LightGun",
+    "fireInterval": 0.35,
+    "bluntDamage": 1.5,
+    "pierceDamage": 3,
+    "fireDamage": 3,
+    "range": 25,
+    "resources": [
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "RoundLog",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mki",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkI.prefab",
+    "description": "$piece_turret_mki_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.30,
+    "bluntDamage": 1,
+    "pierceDamage": 2,
+    "fireDamage": 2,
+    "range": 25,
+    "resources": [
+      {
+        "item": "Tin",
+        "amount": 2
+      },
+      {
+        "item": "Wood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkII.prefab",
+    "description": "$piece_turret_mkii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.27,
+    "bluntDamage": 1.5,
+    "pierceDamage": 3,
+    "fireDamage": 3,
+    "range": 28,
+    "resources": [
+      {
+        "item": "Copper",
+        "amount": 2
+      },
+      {
+        "item": "RoundLog",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkiii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkIII.prefab",
+    "description": "$piece_turret_mkiii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.25,
+    "bluntDamage": 2,
+    "pierceDamage": 4,
+    "fireDamage": 4,
+    "range": 30,
+    "resources": [
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "RoundLog",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkiv",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkIV.prefab",
+    "description": "$piece_turret_mkiv_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.24,
+    "bluntDamage": 2.5,
+    "pierceDamage": 5,
+    "fireDamage": 5,
+    "range": 31,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkv",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkV.prefab",
+    "description": "$piece_turret_mkv_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.235,
+    "bluntDamage": 3.0,
+    "pierceDamage": 6,
+    "fireDamage": 6,
+    "range": 31.5,
+    "resources": [
+      {
+        "item": "Silver",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkvi",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkVI.prefab",
+    "description": "$piece_turret_mkvi_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.2325,
+    "bluntDamage": 3.5,
+    "pierceDamage": 7,
+    "fireDamage": 7,
+    "range": 31.75,
+    "resources": [
+      {
+        "item": "BlackMetal",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_turret_mkvii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_MkVII.prefab",
+    "description": "$piece_turret_mkvii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Gun",
+    "fireInterval": 0.23125,
+    "bluntDamage": 4.0,
+    "pierceDamage": 8,
+    "fireDamage": 8,
+    "range": 31.875,
+    "resources": [
+      {
+        "item": "BlackMarble",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_heavy_turret_mki",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/HeavyTurret_MkI.prefab",
+    "description": "$piece_heavy_turret_mki_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "HeavyGun",
+    "fireInterval": 0.8,
+    "bluntDamage": 12.5,
+    "pierceDamage": 20,
+    "fireDamage": 20,
+    "damageRadius": 2.25,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 7.5,
+    "rangedFireDamage": 7.5,
+    "projectileVelocity": 100,
+    "range": 55,
+    "minimumRange": 5,
+    "mustHaveLineOfSightToTrack": true,
+    "resources": [
+      {
+        "item": "BlackMetal",
+        "amount": 2
+      },
+      {
+        "item": "Iron",
+        "amount": 4
+      },
+      {
+        "item": "FineWood",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_heavy_turret_mkii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/HeavyTurret_MkII.prefab",
+    "description": "$piece_heavy_turret_mkii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "HeavyGun",
+    "fireInterval": 0.78,
+    "bluntDamage": 13.5,
+    "pierceDamage": 22,
+    "fireDamage": 22,
+    "damageRadius": 2.5,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 8.5,
+    "rangedFireDamage": 8.5,
+    "projectileVelocity": 100,
+    "range": 58,
+    "minimumRange": 5,
+    "mustHaveLineOfSightToTrack": true,
+    "resources": [
+      {
+        "item": "BlackMarble",
+        "amount": 2
+      },
+      {
+        "item": "Iron",
+        "amount": 4
+      },
+      {
+        "item": "FineWood",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_heavy_turret_mkiii",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/HeavyTurret_MkIII.prefab",
+    "description": "$piece_heavy_turret_mkiii_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "HeavyGun",
+    "fireInterval": 0.77,
+    "bluntDamage": 14.5,
+    "pierceDamage": 24,
+    "fireDamage": 24,
+    "damageRadius": 2.75,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 9.5,
+    "rangedFireDamage": 9.5,
+    "projectileVelocity": 100,
+    "range": 60,
+    "minimumRange": 5,
+    "mustHaveLineOfSightToTrack": true,
+    "resources": [
+      {
+        "item": "FlametalNew",
+        "amount": 2
+      },
+      {
+        "item": "Iron",
+        "amount": 4
+      },
+      {
+        "item": "FineWood",
+        "amount": 10
+      }
+    ]
+  },
+  {
+    "name": "$piece_missile_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/MissileTurret.prefab",
+    "description": "$piece_missile_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "MissileGun",
+    "fireInterval": 1.0,
+    "reloadTime": 5.0,
+    "maximumNumberOfTrackedTargets": 2,
+    "ammoCount": 1,
+    "bluntDamage": 2.0,
+    "pierceDamage": 0,
+    "mustHaveLineOfSightToTrack": true,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 25,
+    "rangedFireDamage": 25,
+    "damageRadius": 6.5,
+    "missileTurnRate": 1.50,
+    "missileVelocity": 20,
+    "range": 60,
+    "minimumRange": 8,
+    "resources": [
+      {
+        "item": "SurtlingCore",
+        "amount": 1
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_quad_missile_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/QuadMissileTurret.prefab",
+    "description": "$piece_quad_missile_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "MissileGun",
+    "fireInterval": 0.50,
+    "ammoCount": 4,
+    "maximumNumberOfTrackedTargets": 6,
+    "reloadTime": 10.0,
+    "bluntDamage": 2.0,
+    "pierceDamage": 0,
+    "mustHaveLineOfSightToTrack": true,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 25,
+    "rangedFireDamage": 25,
+    "damageRadius": 6.5,
+    "missileTurnRate": 1.0,
+    "missileVelocity": 20,
+    "range": 50,
+    "minimumRange": 10,
+    "resources": [
+      {
+        "item": "SurtlingCore",
+        "amount": 3
+      },
+      {
+        "item": "Bronze",
+        "amount": 3
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_multi_missile_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/MultiMissileTurret.prefab",
+    "description": "$piece_multi_missile_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "MissileGun",
+    "fireInterval": 0.25,
+    "ammoCount": 10,
+    "maximumNumberOfTrackedTargets": 12,
+    "reloadTime": 14.0,
+    "bluntDamage": 2.0,
+    "pierceDamage": 20,
+    "fireDamage": 20,
+    "mustHaveLineOfSightToTrack": true,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 5,
+    "rangedFireDamage": 5,
+    "damageRadius": 1.25,
+    "missileTurnRate": 2.0,
+    "missileVelocity": 24,
+    "range": 40,
+    "minimumRange": 10,
+    "resources": [
+      {
+        "item": "SurtlingCore",
+        "amount": 4
+      },
+      {
+        "item": "Silver",
+        "amount": 4
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/DroneTurret.prefab",
+    "description": "$piece_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Drone",
+    "fireInterval": 0.35,
+    "bluntDamage": 1.5,
+    "pierceDamage": 3,
+    "fireDamage": 3,
+    "range": 30,
+    "droneAttackRange": 12,
+    "maximumNumberOfTrackedTargets": 4,
+    "ignoreThatTargetIsBehindCover": true,
+    "ignorePlayerForTargeting": true,
+    "resources": [
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_healing_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/HealingDroneTurret.prefab",
+    "description": "$piece_healing_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "Drone",
+    "fireInterval": 0.2,
+    "range": 30,
+    "droneAttackRange": 4,
+    "maximumNumberOfTrackedTargets": 4,
+    "ignoreThatTargetIsBehindCover": true,
+    "onlyPlayerForTargeting": true,
+    "healingTarget": true,
+    "healingAmount": 1.0,
+    "patrolCloseToTurret": true,
+    "resources": [
+      {
+        "item": "AncientSeed",
+        "amount": 2
+      },
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_repair_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/RepairDroneTurret.prefab",
+    "description": "$piece_repair_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "RepairDrone",
+    "fireInterval": 4.0,
+    "range": 40,
+    "droneAttackRange": 4,
+    "maximumNumberOfTrackedTargets": 4,
+    "repairTarget": true,
+    "patrolCloseToTurret": true,
+    "resources": [
+      {
+        "item": "AncientSeed",
+        "amount": 2
+      },
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_gather_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/GatherDroneTurret.prefab",
+    "description": "$piece_gather_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "GatherDrone",
+    "fireInterval": 1.0,
+    "range": 60,
+    "minimumRange": 10,
+    "droneAttackRange": 2.4,
+    "maximumNumberOfTrackedTargets": 10,
+    "patrolCloseToTurret": true,
+    "resources": [
+      {
+        "item": "AncientSeed",
+        "amount": 2
+      },
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_fishing_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/FishingDroneTurret.prefab",
+    "description": "$piece_fishing_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "FishingDrone",
+    "fireInterval": 1.0,
+    "range": 100,
+    "minimumRange": 10,
+    "droneAttackRange": 2.4,
+    "maximumNumberOfTrackedTargets": 10,
+    "patrolCloseToTurret": true,
+    "resources": [
+      {
+        "item": "AncientSeed",
+        "amount": 2
+      },
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_logger_drone_turret",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LoggerDroneTurret.prefab",
+    "description": "$piece_logger_drone_turret_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "LoggerDrone",
+    "fireInterval": 0.35,
+    "chopDamage": 4.0,
+    "pickaxeDamage": 2.0,
+    "range": 75,
+    "droneAttackRange": 5,
+    "maximumNumberOfTrackedTargets": 4,
+    "patrolCloseToTurret": true,
+    "resources": [
+      {
+        "item": "AncientSeed",
+        "amount": 2
+      },
+      {
+        "item": "SurtlingCore",
+        "amount": 2
+      },
+      {
+        "item": "Bronze",
+        "amount": 2
+      },
+      {
+        "item": "FineWood",
+        "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "Turret STRESSDEBUG",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/Turret_STRESSDEBUG.prefab",
+    "description": "Intended to easily stress-test the solution with MANY turrets and high ROF",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "enabled": false,
+    "type": "Gun",
+    "fireInterval": 0.10,
+    "bluntDamage": 0.5,
+    "pierceDamage": 1.0,
+    "fireDamage": 1.0,
+    "range": 25,
+    "resources": [
+      {
+        "item": "Wood",
+        "amount": 1
+      }
+    ]
+  }
+]
