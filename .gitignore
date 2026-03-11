@@ -2,3 +2,6 @@
 /obj/Debug
 /obj/Release
 *.dll
+/Assets/AssetBundles
+/ZTurretDefense.csproj.user
+/.vs

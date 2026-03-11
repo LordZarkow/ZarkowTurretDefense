@@ -23,7 +23,7 @@ namespace ZarkowTurretDefense
     {
         public const string PluginGUID = "com.digitalsoftware.zarkowturretdefense";
         public const string PluginName = "Zarkow's Turret Defense";
-        public const string PluginVersion = "1.0.961";
+        public const string PluginVersion = "1.0.1000";
 
         // settings from config file
 
@@ -91,7 +91,7 @@ namespace ZarkowTurretDefense
             _harmony.PatchAll();
 
             // Jotunn comes with its own Logger class to provide a consistent Log style for all mods using it
-            Jotunn.Logger.LogInfo($"### BETA {PluginVersion} ### {PluginName} Loaded.");
+            Jotunn.Logger.LogInfo($"### RELEASE {PluginVersion} ### {PluginName} Loaded.");
             
             // To learn more about Jotunn's features, go to
             // https://valheim-modding.github.io/Jotunn/tutorials/overview.html
