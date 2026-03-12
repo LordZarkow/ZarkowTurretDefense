@@ -15,6 +15,7 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 1.0.1000
 
 Update Jutunn to version 2.28.0
+
 Migrate solution to VS2026
 
 

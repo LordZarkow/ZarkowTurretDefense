@@ -1,3 +1,7 @@
+- Version 1.0.1000
+Update Jutunn to version 2.28.0
+Migrate solution to VS2026
+
 - Version 0.32.960
 Update Jutunn to version 2.21.3
 

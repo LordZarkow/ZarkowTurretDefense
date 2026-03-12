@@ -12,9 +12,12 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-0.32.960
+1.0.1000
 
-Update Jutunn to version 2.21.3
+Update Jutunn to version 2.28.0
+
+Migrate solution to VS2026
+
 
 ## Content
 
@@ -299,9 +302,9 @@ German  --  BLUBBSON
 
 All the mod-specific code is (C)opyright Johan 'Zarkow' Munkestam/Digital Software. The turret models are commercially licensed from CGPitbull.
 
-No parts of this mod may be disassembled, re-used or distributed without the express written permission from the mod author and all the licenseholders of any assets. It is however of course fine to make derivative mods, or include it in a modpack, as a dependency.
+Public git repo for the code, without licensed assets, is at:  https://github.com/LordZarkow/ZarkowTurretDefense and the code is released under a MIT license.
 
-If making your own mod: To acquire your own seat-license for the turret models, visit https://assetstore.unity.com/packages/3d/vehicles/space/weapons-spaceships-pack-150720 and for the launch and impact effects, visit: https://assetstore.unity.com/packages/vfx/particles/impacts-and-muzzle-flashes-57010
+If making your own mod with the same assets: To acquire your own seat-license for the turret models, visit https://assetstore.unity.com/packages/3d/vehicles/space/weapons-spaceships-pack-150720 and for the launch and impact effects, visit: https://assetstore.unity.com/packages/vfx/particles/impacts-and-muzzle-flashes-57010
 
 If the mod is missing from your favorite mod-site, contact the author and it will most likely be added.
 
