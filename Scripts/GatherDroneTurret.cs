@@ -42,6 +42,10 @@ namespace ZarkowTurretDefense.Scripts
             _droneAimPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneAimPoint");
 
             _droneCarryPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneCarryPoint");
+
+            // holder of drone light
+            _droneLight = HelperLib.GetChildGameObject(_droneGameObject, "DroneSensorLight");
+            // AddLogInfo($"Drone {gameObject.name}, _droneLight ({_droneLight})");
         }
 
         override protected void SetUpTurretSpecificData()

@@ -36,6 +36,10 @@ namespace ZarkowTurretDefense.Scripts
             _droneTilt = HelperLib.GetChildGameObject(_droneGameObject, "DroneTilt");
 
             _droneAimPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneAimPoint");
+
+            // holder of drone light
+            _droneLight = HelperLib.GetChildGameObject(_droneGameObject, "DroneSensorLight");
+            // AddLogInfo($"Drone {gameObject.name}, _droneLight ({_droneLight})");
         }
 
         override protected void SetUpTurretSpecificData()
@@ -115,7 +119,7 @@ namespace ZarkowTurretDefense.Scripts
             // move drone according to properties
             _droneGameObject.transform.position += direction * _droneSpeed * Time.deltaTime;
 
-            // if we are within distance to target, enable firing guns
+            // if we are within distance to target, get ready to repair
             var newDistance = Vector3.Distance(_droneGameObject.transform.position, target.Location);
 
             if (newDistance < DroneAttackRange)
@@ -203,7 +207,7 @@ namespace ZarkowTurretDefense.Scripts
                 // special, this is a Repair attack, so lets verify that the unit is below 100%
                 if (RepairTarget)
                 {
-                    if (wearAndTearPiece.GetHealthPercentage() >= 1.0f)
+                    if (wearAndTearPiece.GetHealthPercentage() >= 0.9f) // only care when targets are below 90%, avoid constant repair-jobs being done at 99% mark in rain
                         continue;
                 }
 

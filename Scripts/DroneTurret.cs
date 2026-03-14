@@ -18,6 +18,8 @@ namespace ZarkowTurretDefense.Scripts
 
         protected GameObject _droneAimPoint;
 
+        protected GameObject _droneLight;
+
         protected RotationDefinitions _droneRotationDefinitions;
         protected DegreesSpecifier _droneAimResult;
         private readonly RotationData _droneRotationData = new RotationData();
@@ -27,9 +29,11 @@ namespace ZarkowTurretDefense.Scripts
         protected readonly float _droneMaxSpeed = 10.0f;
         protected float _droneSpeed;
 
-        protected TurretPatrolType _droneMode = TurretPatrolType.NoTarget;
+        protected TurretPatrolType _droneMode = TurretPatrolType.ScanTarget;
 
         protected readonly int _rayMaskDroneDownCheck = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece", "terrain");
+
+        protected int _inactivityToRestCounter = 3;
 
         override protected void RegisterRemoteProcedureCalls()
         {
@@ -60,6 +64,10 @@ namespace ZarkowTurretDefense.Scripts
             _droneTilt = HelperLib.GetChildGameObject(_droneGameObject, "DroneTilt");
 
             _droneAimPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneAimPoint");
+
+            // holder of drone light
+            _droneLight = HelperLib.GetChildGameObject(_droneGameObject, "DroneSensorLight");
+            // AddLogInfo($"Drone {gameObject.name}, _droneLight ({_droneLight})");
         }
 
         override protected void SetUpTurretSpecificData()
@@ -120,6 +128,8 @@ namespace ZarkowTurretDefense.Scripts
 
                 if (_droneTarget != null)
                 {
+                    _inactivityToRestCounter = 3;
+
                     _droneTarget.TimeToLive = 10.0f; // minimum attack time before we can ask tower for a new target -- to make it less jittery
 
                     UpdateDroneMode(TurretPatrolType.ScanTarget);
@@ -129,8 +139,13 @@ namespace ZarkowTurretDefense.Scripts
             }
 
             // if we are still at null - create a temp patrol target order
-            if (_droneTarget == null)
+            if (_droneTarget == null && _inactivityToRestCounter > 0)
             {
+                if (PatrolCloseToTurret && _inactivityToRestCounter > 0)
+                {
+                    _inactivityToRestCounter--;
+                }
+
                 // create a target, location based
                 var randomLocationPosXPosZ = Random.insideUnitCircle * (PatrolCloseToTurret ? Range * 0.1f : Range);
                 var randomLocationStart = new Vector3(transform.position.x + randomLocationPosXPosZ.x, transform.position.y + 250.0f, transform.position.z + randomLocationPosXPosZ.y);
@@ -155,13 +170,44 @@ namespace ZarkowTurretDefense.Scripts
                     };
                     _droneTarget = newTarget;
 
-                    UpdateDroneMode(TurretPatrolType.ScanTarget);
+                    UpdateDroneMode(TurretPatrolType.NoTarget);
 
                     // AddDebugMsg($"DroneTurret.ControlAndMoveMissilesOrProjectilesOrDrones({_targetList.Count}) -- added new MOVEMENT Target: {newTarget.Location}");
                 }
 
                 // do something special if we fail to hit a point that is valid against terrain etc
             }
+            else if (_droneTarget == null && _inactivityToRestCounter == 0)
+            {
+                // special, we want to rest home on the drone turret, so travel back to it, and next, park on it.
+                var newTarget = new Target()
+                {
+                    Location = new Vector3(_turretAimPoint.transform.position.x, _turretAimPoint.transform.position.y + 2.0f, _turretAimPoint.transform.position.z),
+                    IsMoveOrder = true,
+                    TimeToLive = 10.0f,
+                };
+                _droneTarget = newTarget;
+
+                UpdateDroneMode(TurretPatrolType.NoTarget);
+
+                _inactivityToRestCounter--;
+            } 
+            else if (_droneTarget == null && _inactivityToRestCounter == -1)
+            {
+                // special, park on turret
+                var newTarget = new Target()
+                {
+                    Location = new Vector3(_turretAimPoint.transform.position.x, _turretAimPoint.transform.position.y, _turretAimPoint.transform.position.z),
+                    IsMoveOrder = true,
+                    TimeToLive = 10.0f,
+                };
+                _droneTarget = newTarget;
+
+                UpdateDroneMode(TurretPatrolType.NoTarget);
+
+                _inactivityToRestCounter--;
+            }
+
 
             if (_droneTarget == null)
                 return;
@@ -633,60 +679,31 @@ namespace ZarkowTurretDefense.Scripts
 
         protected void UpdateDroneMode(TurretPatrolType newMode)
         {
-            // AddDebugMsg($"{TurretTypeOfThisTurret}.UpdateMode({newMode}), is: {_turretMode}");
+            // AddDebugMsg($"{TurretTypeOfThisTurret}.UpdateDroneMode({newMode}), is: {_droneMode}");
 
             if (newMode == _droneMode)
                 return;
 
-            // AddDebugMsg($"{TurretTypeOfThisTurret}.UpdateDroneMode({newMode}), is: {_droneMode}");
-
-            // a change, so impact turret
+            // a change, so impact drone
             _droneMode = newMode;
 
-            //var showScanModeBits = false;
-            //var showAttackModeBits = false;
-
-            //// set flags
-            //if (_turretMode == TurretPatrolType.ScanTarget)
-            //{
-            //    showScanModeBits = true;
-            //}
-            //else if (_turretMode == TurretPatrolType.AttackTarget)
-            //{
-            //    showAttackModeBits = true;
-            //}
-
-            //// set Attack bits
-            //if (showAttackModeBits)
-            //{
-            //    if (_lightRed != null)
-            //        _lightRed.SetActive(true);
-
-            //    if (_lightLaser != null)
-            //        _lightLaser.SetActive(true);
-            //}
-            //else
-            //{
-            //    // HIDE attack bits
-            //    if (_lightRed != null)
-            //        _lightRed.SetActive(false);
-
-            //    if (_lightLaser != null)
-            //        _lightLaser.SetActive(false);
-            //}
-
-            //// set Scan bits
-            //if (showScanModeBits)
-            //{
-            //    if (_lightYellow != null)
-            //        _lightYellow.SetActive(true);
-            //}
-            //else
-            //{
-            //    // HIDE scan bits
-            //    if (_lightYellow != null)
-            //        _lightYellow.SetActive(false);
-            //}
+            // set Attack or Scan bits
+            if (_droneMode == TurretPatrolType.AttackTarget || _droneMode == TurretPatrolType.ScanTarget)
+            {
+                if (_droneLight != null)
+                {
+                    // AddLogInfo($"Drone {gameObject.name}, set _droneLight:  ON ({_droneMode})");
+                    _droneLight.SetActive(true);
+                }
+            }
+            else // turn off, we are doing nothing
+            {
+                if (_droneLight != null)
+                {
+                    // AddLogInfo($"Drone {gameObject.name}, set _droneLight:  OFF ({_droneMode})");
+                    _droneLight.SetActive(false);
+                }
+            }
         }
 
 
