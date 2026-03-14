@@ -841,6 +841,7 @@ namespace ZarkowTurretDefense.Scripts
                 }
 
                 // AddDebugMsg($"Target search: Validating: Character {character.name}");
+                // AddLogInfo($"Target search: Validating: Character {character.name}, faction {character.GetFaction()}");
 
                 // get range to char, as we also base our point-evaluation on it
                 var rangeToChar = GetRangeToCharacter(character);
@@ -870,6 +871,22 @@ namespace ZarkowTurretDefense.Scripts
                     // AddDebugMsg($"Target search: HealingTarget: {character.name}, {character.GetHealthPercentage()}");
                 }
 
+                // SPECIAL CHARACTERS - Dverger faction - we ignore them unless aggroed.
+
+                // broom from witch hut
+                if (character.GetFaction() == Character.Faction.Dverger)
+                {
+                    //AddLogInfo($"Target search: Dverger, {character.name}, is it aggro?");
+
+                    if (character.GetBaseAI() != null
+                        && character.GetBaseAI().IsAlerted() == false) // maybe swap this for IsEnemy
+                    {
+                        //AddLogInfo($"Target search: Dverger and NOT IsAlerted() -- {character.m_name} ({character.GetInstanceID()}) -- skipping");
+                        continue;
+                    }
+                }
+
+
                 // ANIMALS - VEG
 
                 // vegetarian animals, any animal not counted as forrest monster (rabbits and chickens only?)
@@ -878,7 +895,6 @@ namespace ZarkowTurretDefense.Scripts
                     // AddDebugMsg($"Target search: AnimalsVeg found, {character.name}, skipping");
                     continue;
                 }
-
 
                 // ANIMALS - TAMEABLE
 
