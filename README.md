@@ -310,5 +310,5 @@ If the mod is missing from your favorite mod-site, contact the author and it wil
 
 ## Contact
 
-For any help, support, feedback or to give words of encuragement, please join the Discord: https://discord.gg/fyqtxZt
+For any help, support, feedback or to give words of encouragement, please join the Discord: https://discord.gg/fyqtxZt
 
