@@ -12,11 +12,17 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-1.0.1000
+1.1.1012
 
-Update Jutunn to version 2.28.0
+Drones now turn off their scan-light if not in Scan or Attack mode.
 
-Migrate solution to VS2026
+Worker Drones that has out of jobs will gradually return to idle at their homebase turrets.
+
+Repair Drone only consider pieces that is below 90% in health as something to repair, avoids repair-spam in rainy weather.
+
+Gather Drone blacklist storage increased from 3x2 to 3x3 slots.
+
+Dvergers that is not in Alerted state are now ignored by turrets.
 
 
 ## Content
