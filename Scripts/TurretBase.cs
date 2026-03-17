@@ -843,6 +843,10 @@ namespace ZarkowTurretDefense.Scripts
                 // AddDebugMsg($"Target search: Validating: Character {character.name}");
                 // AddLogInfo($"Target search: Validating: Character {character.name}, faction {character.GetFaction()}");
 
+                // we complete ignore training dummy, do not consider it a target to even look at:
+                if (character.GetFaction() == Character.Faction.TrainingDummy)
+                    continue;
+
                 // get range to char, as we also base our point-evaluation on it
                 var rangeToChar = GetRangeToCharacter(character);
 
