@@ -135,7 +135,9 @@ namespace ZarkowTurretDefense.Scripts
                 UpdateDroneMode(TurretPatrolType.ScanTarget);
             }
 
-            // AddDebugMsg($"LoggerDroneTurret.MoveAndHandleTreesAndLogs({target.GetHashCode()}, {(target.LoggerTreeBaseTarget != null ? target.LoggerTreeBaseTarget.gameObject.name : target.LoggerTreeLogTarget.gameObject.name)}) -- distance: {newDistance} ({(newDistance / Range)}, {_droneMode}), speed: {_droneSpeed} ({(_droneSpeed * Time.deltaTime)}), health: {(target.LoggerTreeBaseTarget != null ? target.LoggerTreeBaseTarget.m_health : target.LoggerTreeLogTarget.m_health)}, new location: {_droneGameObject.transform.position}, target location: {target.Location} -- TTL: {target.TimeToLive}");
+            // AddLogInfo($"LoggerDroneTurret.MoveAndHandleTreesAndLogs({target.GetHashCode()}, {(target.LoggerTreeBaseTarget != null ? target.LoggerTreeBaseTarget.gameObject.name : target.LoggerTreeLogTarget.gameObject.name)}) -- distance: {newDistance} ({(newDistance / Range)}, {_droneMode}), speed: {_droneSpeed} ({(_droneSpeed * Time.deltaTime)}), health: {(target.LoggerTreeBaseTarget != null ? target.LoggerTreeBaseTarget.m_health : target.LoggerTreeLogTarget.m_health)}, new location: {_droneGameObject.transform.position}, target location: {target.Location} -- TTL: {target.TimeToLive}");
+
+            // AddLogInfo($"LoggerDroneTurret.MoveAndHandleTreesAndLogs({gameObject.GetHashCode()}, -- TTL: {target.TimeToLive}");
 
             var health = target.LoggerTreeBaseTarget != null
                 ? target.LoggerTreeBaseTarget.m_health
@@ -150,11 +152,21 @@ namespace ZarkowTurretDefense.Scripts
                 return true;
             }
 
-            // if we are out of time, return that we are finished -- set this to minus 10 to force 20 sec time per target, if a thick tree...
-            if (target.TimeToLive <= -10.0f)
+            // if we are out of time, return that we are giving up, could case were we are stuck...
+            if (target.TimeToLive <= 0.0f)
             {
                 UpdateDroneMode(TurretPatrolType.NoTarget);
-                return true;
+
+                // special, as we ran out of time, we might be accidentally wonder inside a tree or behind something indestructible, so lets travel home and restart
+                var newTarget = new Target()
+                {
+                    Location = new Vector3(_turretAimPoint.transform.position.x, _turretAimPoint.transform.position.y + 2.0f, _turretAimPoint.transform.position.z),
+                    IsMoveOrder = true,
+                    TimeToLive = 10.0f,
+                };
+                _droneTarget = newTarget;
+
+                return false; // special, we do not want to grab next, we want to replace current with this special move one...
             }
 
             return false;
@@ -364,6 +376,9 @@ namespace ZarkowTurretDefense.Scripts
                 // location does not seem usable, but meh
                 Location = vGameObject.transform.position,
                 DistanceRating = distanceRating,
+
+                // custom TTL
+                TimeToLive = 40.0f,
             };
         }
 

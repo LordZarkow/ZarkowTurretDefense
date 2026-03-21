@@ -130,7 +130,11 @@ namespace ZarkowTurretDefense.Scripts
                 {
                     _inactivityToRestCounter = 3;
 
-                    _droneTarget.TimeToLive = 10.0f; // minimum attack time before we can ask tower for a new target -- to make it less jittery
+                    // if target does not have a custom TTL set at creation, enforce 10s default here
+                    if (_droneTarget.TimeToLive <= 0.0f)
+                    {
+                        _droneTarget.TimeToLive = 10.0f; // minimum attack time before we can ask tower for a new target -- to make it less jittery
+                    }
 
                     UpdateDroneMode(TurretPatrolType.ScanTarget);
 
