@@ -2,6 +2,7 @@
 Logger Drone now temporarily give up if a felling takes too long, as it could indicate the tree or log is behind cover.
 Logger Drone and Fishing Drone no longer requires Workbench to be built close to it.
 Training Dummy is now fully ignored by turrets.
+All turrets and added building pieces now have snappoints, some have multiple where it makes sense.
 
 - Version 1.1.1012
 Drones now turn off their scan-light if not in Scan or Attack mode.

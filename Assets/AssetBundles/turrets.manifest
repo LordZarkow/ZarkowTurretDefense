@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1830861191
+CRC: 3668019539
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c62ffeb29fefb1a10a9307c731a2fd5e
+    Hash: a01b974a043e5bc343fb5e669e84c131
   TypeTreeHash:
     serializedVersion: 2
     Hash: 3f65195a3e0f96a927f7acf6d4b9c9ff
@@ -83,9 +83,11 @@ Assets:
 - Assets/Icons/DroneTurret.png
 - Assets/Prefabs/LayingIronStructure.prefab
 - Assets/Icons/FloatingIronStructure.png
+- Assets/Icons/LeaningIronStructure.png
 - Assets/Prefabs/Turret_MkIII.prefab
 - Assets/Prefabs/LightTurret.prefab
 - Assets/Icons/HealingDroneTurret.png
+- Assets/Prefabs/WideLeaningIronStructure.prefab
 - Assets/Icons/HeavyTurret_MkI.png
 - Assets/Prefabs/Turret_MkIV.prefab
 - Assets/Prefabs/HeavyTurret_MkI.prefab
@@ -99,6 +101,7 @@ Assets:
 - Assets/Prefabs/ElectricityMineTurret.prefab
 - Assets/Icons/StandingIronStructure.png
 - Assets/Icons/LightStick_Blue.png
+- Assets/Prefabs/LeaningIronStructure.prefab
 - Assets/Prefabs/LightStick_Blue.prefab
 - Assets/Prefabs/LoggerDroneTurret.prefab
 - Assets/Icons/HeavyTurret_MkII.png
@@ -116,7 +119,9 @@ Assets:
 - Assets/Prefabs/Trail_MediumMissile.prefab
 - Assets/Icons/SmallSpotlight.png
 - Assets/Prefabs/Trail_HeavyProjectile.prefab
+- Assets/Icons/MarinaIronStructure.png
 - Assets/Material/Particlematerial.mat
+- Assets/Icons/WideLeaningIronStructure.png
 - Assets/Icons/QuadMissileTurret.png
 - Assets/Prefabs/LaunchAudio.prefab
 - Assets/Prefabs/SpotlightTower.prefab
@@ -154,9 +159,9 @@ Assets:
 - Assets/Prefabs/FireGunBarrelEffect.prefab
 - Assets/Icons/SpotlightTurret.png
 - Assets/Prefabs/HeavyTurret_MkIII.prefab
-- Assets/Prefabs/FloatingIronStructure.prefab
-- Assets/Icons/LightTurret_MkII.png
+- Assets/Prefabs/MarinaIronStructure.prefab
 - Assets/Icons/LayingIronStructure.png
+- Assets/Icons/LightTurret_MkII.png
 - Assets/Prefabs/LightTurret_MkII.prefab
 - Assets/Material/Turret_BlackMarbel.mat
 - Assets/Prefabs/Turret_MkII.prefab

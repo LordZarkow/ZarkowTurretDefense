@@ -63,8 +63,16 @@
   "piece_spotlight_tower_desc": "Turm mit montierten Scheinwerfern",
   "piece_tall_spotlight_tower": "Hoher Scheinwerferturm",
   "piece_tall_spotlight_tower_desc": "Hoher Turm mit montierten Scheinwerfern",
+  "piece_standing_iron_structure": "Stehende Eisenstruktur",
+  "piece_standing_iron_structure_desc": "Vertikale Eisengebäudestruktur",
   "piece_laying_iron_structure": "Eisenstruktur verlegen",
   "piece_laying_iron_structure_desc": "Horizontale Eisengebäudestruktur",
-  "piece_standing_iron_structure": "Stehende Eisenstruktur",
-  "piece_standing_iron_structure_desc": "Vertikale Eisengebäudestruktur"
+  "$piece_marina_iron_structure": "Marine-Eisenstruktur",
+  "$piece_marina_iron_structure_desc": "Marine-Eisenbaustruktur",
+  "$piece_leaning_iron_structure": "Schräge Eisenstruktur",
+  "$piece_leaning_iron_structure_desc": "Schräge Eisenstruktur",
+
+  "$piece_wide_leaning_iron_structure": "Wide Leaning Iron Structure",
+  "$piece_wide_leaning_iron_structure_desc": "Wide leaning iron building structure",
+
 }

@@ -120,22 +120,6 @@
     ]
   },
   {
-    "name": "$piece_laying_iron_structure",
-    "bundleName": "turrets",
-    "prefabPath": "Assets/Prefabs/LayingIronStructure.prefab",
-    "description": "$piece_laying_iron_structure_desc",
-    "pieceTable": "Hammer",
-    "craftingStation": "Workbench",
-    "type": "Static",
-    "enabled": true,
-    "resources": [
-      {
-        "item": "Iron",
-        "amount": 5
-      }
-    ]
-  },
-  {
     "name": "$piece_standing_iron_structure",
     "bundleName": "turrets",
     "prefabPath": "Assets/Prefabs/StandingIronStructure.prefab",
@@ -147,27 +131,75 @@
     "resources": [
       {
         "item": "Iron",
-        "amount": 5
+        "amount": 3
       }
     ]
   },
   {
-    "name": "$piece_floating_iron_structure",
+    "name": "$piece_laying_iron_structure",
     "bundleName": "turrets",
-    "prefabPath": "Assets/Prefabs/FloatingIronStructure.prefab",
-    "description": "$piece_floating_iron_structure_desc",
+    "prefabPath": "Assets/Prefabs/LayingIronStructure.prefab",
+    "description": "$piece_laying_iron_structure_desc",
     "pieceTable": "Hammer",
     "craftingStation": "Workbench",
     "type": "Static",
-    "enabled": false,
+    "enabled": true,
     "resources": [
       {
         "item": "Iron",
-        "amount": 5
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "$piece_marina_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/MarinaIronStructure.prefab",
+    "description": "$piece_marina_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 3
       },
       {
         "item": "Wood",
         "amount": 4
+      }
+    ]
+  },
+  {
+    "name": "$piece_leaning_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/LeaningIronStructure.prefab",
+    "description": "$piece_leaning_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 3
+      }
+    ]
+  },
+  {
+    "name": "$piece_wide_leaning_iron_structure",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/WideLeaningIronStructure.prefab",
+    "description": "$piece_wide_leaning_iron_structure_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "type": "Static",
+    "enabled": true,
+    "resources": [
+      {
+        "item": "Iron",
+        "amount": 5
       }
     ]
   }

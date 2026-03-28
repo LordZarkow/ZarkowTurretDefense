@@ -63,8 +63,14 @@
   "piece_spotlight_tower_desc": "Tower with Spotlights mounted",
   "piece_tall_spotlight_tower": "Tall Spotlight Tower",
   "piece_tall_spotlight_tower_desc": "Tall tower with Spotlights mounted",
+  "piece_standing_iron_structure": "Standing Iron Structure",
+  "piece_standing_iron_structure_desc": "Vertical iron building structure",
   "piece_laying_iron_structure": "Laying Iron Structure",
   "piece_laying_iron_structure_desc": "Horizontal iron building structure",
-  "piece_standing_iron_structure": "Standing Iron Structure",
-  "piece_standing_iron_structure_desc": "Vertical iron building structure"
+  "$piece_marina_iron_structure": "Marina Iron Structure",
+  "$piece_marina_iron_structure_desc": "Marina iron building structure",
+  "$piece_leaning_iron_structure": "Leaning Iron Structure",
+  "$piece_leaning_iron_structure_desc": "Leaning iron building structure",
+  "$piece_wide_leaning_iron_structure": "Wide Leaning Iron Structure",
+  "$piece_wide_leaning_iron_structure_desc": "Wide leaning iron building structure",
 }
