@@ -8,6 +8,7 @@ namespace ZarkowTurretDefense.Scripts
 {
     using Jotunn.Managers;
     using UnityEngine;
+    using static UnityEngine.GraphicsBuffer;
 
     public class GatherDroneTurret : DroneTurret
     {
@@ -92,6 +93,32 @@ namespace ZarkowTurretDefense.Scripts
                 return true;
             }
 
+            // on the way to get it, check if it is still valid to pick up, could be picked up by other drone...
+            if (target.OnGatheritemDropReturnTrip == false)
+            {
+                // AddLogInfo($"{TurretTypeOfThisTurret}.MoveAndHandleGather(), Flying towards {target.GatherItemDrop.gameObject.name} ({target.GatherItemDrop.gameObject.GetInstanceID()}), {target.RigidBody.useGravity}/{target.RigidBody.isKinematic} ({_targetList.Count} targets)");
+
+                // if gravity is turned off, we most likely hacked it for another drone, so skip trying to track this, no need for drones to hassle eachother
+                if (target.RigidBody.isKinematic == true)
+                {
+                    // AddLogInfo($"{TurretTypeOfThisTurret}.MoveAndHandleGather(), {target.GatherItemDrop.gameObject.name} ({target.GatherItemDrop.gameObject.GetInstanceID()}), other drone has it, skipping ({_targetList.Count} left)");
+
+                    //foreach (var tempTarget in _targetList)
+                    //{
+                    //    AddLogInfo($"{TurretTypeOfThisTurret}.targetList >> {tempTarget.GatherItemDrop?.gameObject?.name} ({tempTarget.GatherItemDrop?.gameObject?.GetInstanceID()})");
+                    //}
+
+                    return true; // target done, do next
+                }
+
+                // make sure item is not already within min range of turret
+                if (Vector3.Distance(target.GatherItemDrop.transform.position, this.gameObject.transform.position) <= MinimumRange)
+                {
+                    // AddLogInfo($"{TurretTypeOfThisTurret}.MoveAndHandleGather(), {target.GatherItemDrop.gameObject.name} ({target.GatherItemDrop.gameObject.GetInstanceID()}), already close to turret, skipping ({_targetList.Count} left)");
+                    return true; // target done, do next
+                }
+            }
+
             // adjust position we are traveling to, based on targets location vs drop location
             var centerLoc = (target.OnGatheritemDropReturnTrip == false) ? target.GatherItemDrop.transform.position : this.gameObject.transform.position;
             target.Location = new Vector3(centerLoc.x, SetDroneMovementHeight(centerLoc.y), centerLoc.z);
@@ -145,13 +172,13 @@ namespace ZarkowTurretDefense.Scripts
 
             if (_droneTarget.OnGatheritemDropReturnTrip)
             {
-                SyncItemToDrone(false, false);
+                SyncItemToDrone(_droneTarget.RigidBody, true, false);
 
                 // we are on return-leg, keep it up until done
                 return false;
             }
 
-            // item is not pickable, maybe because the item is already picked up?
+            // item is not pickable, maybe because the item is already picked up by (other) player?
             if (_droneTarget.GatherItemDrop.CanPickup(false) == false)
             {
                 // the item may have been picked up already or swooped up by some mod in put in container etc - skip logging it out now
@@ -163,7 +190,7 @@ namespace ZarkowTurretDefense.Scripts
             // if we are out of time, return that we are finished
             if (_droneTarget.TimeToLive <= 0.0f)
             {
-                AddDebugMsg($"{TurretTypeOfThisTurret}.MoveAndHandleGather - Pickup aborted - we ran out of time on Target {_droneTarget.GatherItemDrop.name}");
+                // AddDebugMsg($"{TurretTypeOfThisTurret}.MoveAndHandleGather - Pickup aborted - we ran out of time on Target {_droneTarget.GatherItemDrop.name}");
                 UpdateDroneMode(TurretPatrolType.NoTarget);
                 return true;
             }
@@ -206,7 +233,7 @@ namespace ZarkowTurretDefense.Scripts
                 // not enabled, so not really there in the world
                 if (item.enabled == false)
                 {
-                    AddDebugMsg($"itemDrop, Target search: Item {item.name} is not enabled -- skipping");
+                    // AddDebugMsg($"itemDrop, Target search: Item {item.name} is not enabled -- skipping");
                     continue;
                 }
 
@@ -349,6 +376,7 @@ namespace ZarkowTurretDefense.Scripts
                 IsGatherItemOrder = true,
                 Location = item.gameObject.transform.position,
                 DistanceRating = distanceRating,
+                RigidBody = item.gameObject.GetComponent<Rigidbody>(),
             };
         }
 
@@ -366,6 +394,15 @@ namespace ZarkowTurretDefense.Scripts
             {
                 return false;
             }
+
+            // on the way to get it, check if it is still valid to pick up, could be picked up by other drone...
+            //if (_droneTarget.OnGatheritemDropReturnTrip == false)
+            //{
+            //    if (_droneTarget.RigidBody.useGravity == false)
+            //    {
+            //        return false;
+            //    }
+            //}
 
             var result = HelperLib.UpdateAimInfoForCurrentItemDropTarget(_droneTarget, _droneAimPoint, _droneAimResult, _aimResultTempCalcHolder);
 
@@ -385,7 +422,7 @@ namespace ZarkowTurretDefense.Scripts
                 var itemPosition = _droneTarget.GatherItemDrop.transform.position;
 
                 _droneTarget.OnGatheritemDropReturnTrip = true;
-                SyncItemToDrone(true, false);
+                SyncItemToDrone(_droneTarget.RigidBody, true, false);
 
                 // tell other players the launch occur, what barrel to use and impact info, to draw effects...
                 _zNetView.InvokeRPC(ZNetView.Everybody, "ZTD_LaunchDroneCannonProjectile", itemPosition, Vector3.forward);
@@ -393,31 +430,36 @@ namespace ZarkowTurretDefense.Scripts
                 return;
             }
 
-            // return trip
+            // return trip - reached end location, time to drop it
 
             // drop item by forcing de-sync against it
-            SyncItemToDrone(false, true);
+            SyncItemToDrone(_droneTarget.RigidBody, false, true);
             
             _droneTarget.GatherItemDrop = null;
         }
 
-        protected void SyncItemToDrone(bool turnOffUsageOfGravity, bool turnOnUsageOfGravity)
+        protected void SyncItemToDrone(Rigidbody targetRigidBody, bool turnOffUsageOfGravity, bool turnOnUsageOfGravity)
         {
             // _droneTarget.GatherItemDrop.transform.position = _droneCarryPoint.transform.position;
             // _droneTarget.GatherItemDrop.transform.rotation = _droneCarryPoint.transform.rotation;
 
-            var rigidBodyDrop = _droneTarget.GatherItemDrop.gameObject.GetComponent<Rigidbody>();
-            if (rigidBodyDrop != null)
+            if (targetRigidBody != null)
             {
-                rigidBodyDrop.MovePosition(_droneCarryPoint.transform.position);
-                rigidBodyDrop.MoveRotation(_droneCarryPoint.transform.rotation);
-                rigidBodyDrop.velocity = Vector3.zero;
+                targetRigidBody.MovePosition(_droneCarryPoint.transform.position);
+                targetRigidBody.MoveRotation(_droneCarryPoint.transform.rotation);
 
                 if (turnOffUsageOfGravity)
-                    rigidBodyDrop.useGravity = false;
+                {
+                    targetRigidBody.isKinematic = true;
+                }
 
                 if (turnOnUsageOfGravity)
-                    rigidBodyDrop.useGravity = true;
+                {
+                    targetRigidBody.isKinematic = false;
+                    targetRigidBody.linearVelocity = Vector3.zero;
+                }
+
+                // AddLogInfo($"{TurretTypeOfThisTurret} Carrying {targetRigidBody.gameObject.name} ({targetRigidBody.gameObject.GetInstanceID()}), {targetRigidBody.useGravity}/{targetRigidBody.isKinematic}");
             }
         }
 

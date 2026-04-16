@@ -516,6 +516,9 @@ namespace ZarkowTurretDefense.Scripts
                 return;
             }
 
+            if (Time.deltaTime == 0.0f)
+                return;
+
             _updateTargetTimer -= Time.deltaTime;
 
             // if we have magazine, see if we are in reload-step, if so count down reload timer. We can reload with projectiles in flight, for now
