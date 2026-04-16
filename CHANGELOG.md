@@ -1,4 +1,5 @@
-- Version 1.2.10xx
+- Version 1.2.1020
+Added Marina Iron Structure, Leaning Iron Structure and Wide Leaning Iron Structure.
 Logger Drone now temporarily give up if a felling takes too long, as it could indicate the tree or log is behind cover.
 Logger Drone and Fishing Drone no longer requires Workbench to be built close to it.
 Training Dummy is now fully ignored by turrets.

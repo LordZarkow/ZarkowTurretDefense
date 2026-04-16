@@ -12,17 +12,17 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-1.1.1012
+1.2.1020
 
-Drones now turn off their scan-light if not in Scan or Attack mode.
+Added Marina Iron Structure, Leaning Iron Structure and Wide Leaning Iron Structure.
 
-Worker Drones that has out of jobs will gradually return to idle at their homebase turrets.
+Logger Drone now temporarily give up if a felling takes too long, as it could indicate the tree or log is behind cover.
 
-Repair Drone only consider pieces that is below 90% in health as something to repair, avoids repair-spam in rainy weather.
+Logger Drone and Fishing Drone no longer requires Workbench to be built close to it.
 
-Gather Drone blacklist storage increased from 3x2 to 3x3 slots.
+Training Dummy is now fully ignored by turrets.
 
-Dvergers that is not in Alerted state are now ignored by turrets.
+All turrets and added building pieces now have snappoints, some have multiple where it makes sense.
 
 
 ## Content
