@@ -281,7 +281,7 @@ namespace ZarkowTurretDefense.Scripts
             {
                 var gatherResult = MoveAndHandleGather(_droneTarget);
 
-                if (gatherResult || (_droneTarget.OnGatheritemDropReturnTrip == false && _droneTarget.TimeToLive < 0.0f))
+                if (gatherResult || (_droneTarget.OnGatherItemDropReturnTrip == false && _droneTarget.TimeToLive < 0.0f))
                 {
                     _targetList.Remove(_droneTarget);
 
@@ -535,7 +535,7 @@ namespace ZarkowTurretDefense.Scripts
             // AddDebugMsg($"{TurretTypeOfThisTurret}.UpdateShootingIntervalAndDetermineIfWeShouldShoot() - _nextShootDelayTimer: {_nextShootDelayTimer}, _droneMode: {_droneMode}");
 
             // special, gather drone, second leg, we don't care about aim
-            if (_droneTarget.IsGatherItemOrder && _droneTarget.OnGatheritemDropReturnTrip)
+            if (_droneTarget.IsGatherItemOrder && _droneTarget.OnGatherItemDropReturnTrip)
             {
                 if (_nextShootDelayTimer <= 0.0f)
                 {

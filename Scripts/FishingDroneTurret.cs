@@ -13,7 +13,7 @@ namespace ZarkowTurretDefense.Scripts
     {
         override protected float SetDroneMovementHeight(float heightIn)
         {
-            return (_droneTarget.OnGatheritemDropReturnTrip == false) ? 30.5f : (heightIn + 3.0f);
+            return (_droneTarget.OnGatherItemDropReturnTrip == false) ? 30.5f : (heightIn + 3.0f);
         }
         
         override protected void FindNewTarget()

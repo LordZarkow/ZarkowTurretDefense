@@ -16,6 +16,8 @@ namespace ZarkowTurretDefense.Scripts
 
         private GameObject _droneCarryPoint;
 
+        private GameObject _droneDropOffAimPoint;
+
         private Container _container;
         override protected void GetSpecialBodyPartsOfTurret()
         {
@@ -43,6 +45,17 @@ namespace ZarkowTurretDefense.Scripts
             _droneAimPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneAimPoint");
 
             _droneCarryPoint = HelperLib.GetChildGameObject(_droneGameObject, "DroneCarryPoint");
+
+            _droneDropOffAimPoint = HelperLib.GetChildGameObject(gameObject, "DropoffAimPoint");
+
+            if (_droneDropOffAimPoint == null)
+            {
+                // very odd seeing this, but inject a solution
+                AddLogInfo($"UNEXPECTED: _droneDropOffAimPoint is null -- fixing");
+                _droneDropOffAimPoint = new GameObject();
+                _droneDropOffAimPoint.transform.SetParent(gameObject.transform);
+                _droneDropOffAimPoint.transform.localPosition = new Vector3(0, 0.5f, -4);
+            }
 
             // holder of drone light
             _droneLight = HelperLib.GetChildGameObject(_droneGameObject, "DroneSensorLight");
@@ -94,9 +107,16 @@ namespace ZarkowTurretDefense.Scripts
             }
 
             // on the way to get it, check if it is still valid to pick up, could be picked up by other drone...
-            if (target.OnGatheritemDropReturnTrip == false)
+            if (target.OnGatherItemDropReturnTrip == false)
             {
                 // AddLogInfo($"{TurretTypeOfThisTurret}.MoveAndHandleGather(), Flying towards {target.GatherItemDrop.gameObject.name} ({target.GatherItemDrop.gameObject.GetInstanceID()}), {target.RigidBody.useGravity}/{target.RigidBody.isKinematic} ({_targetList.Count} targets)");
+
+                if (target.RigidBody == null)
+                {
+                    // should not occur, but if it does, log and skip
+                    AddLogInfo($"Rigidbody missing on target, skipping it.");
+                    return true;
+                }
 
                 // if gravity is turned off, we most likely hacked it for another drone, so skip trying to track this, no need for drones to hassle eachother
                 if (target.RigidBody.isKinematic == true)
@@ -111,8 +131,23 @@ namespace ZarkowTurretDefense.Scripts
                     return true; // target done, do next
                 }
 
+                if (target.GatherItemDrop.transform == null)
+                {
+                    AddLogInfo($"target.GatherItemDrop.transform == null");
+                }
+
+                if (_droneDropOffAimPoint == null)
+                {
+                    AddLogInfo($"_droneDropOffAimPoint == null");
+                }
+
+                if (_droneDropOffAimPoint.transform == null)
+                {
+                    AddLogInfo($"_droneDropOffAimPoint.transform == null");
+                }
+
                 // make sure item is not already within min range of turret
-                if (Vector3.Distance(target.GatherItemDrop.transform.position, this.gameObject.transform.position) <= MinimumRange)
+                if (Vector3.Distance(target.GatherItemDrop.transform.position, _droneDropOffAimPoint.transform.position) <= MinimumRange)
                 {
                     // AddLogInfo($"{TurretTypeOfThisTurret}.MoveAndHandleGather(), {target.GatherItemDrop.gameObject.name} ({target.GatherItemDrop.gameObject.GetInstanceID()}), already close to turret, skipping ({_targetList.Count} left)");
                     return true; // target done, do next
@@ -120,7 +155,7 @@ namespace ZarkowTurretDefense.Scripts
             }
 
             // adjust position we are traveling to, based on targets location vs drop location
-            var centerLoc = (target.OnGatheritemDropReturnTrip == false) ? target.GatherItemDrop.transform.position : this.gameObject.transform.position;
+            var centerLoc = (target.OnGatherItemDropReturnTrip == false) ? target.GatherItemDrop.transform.position : _droneDropOffAimPoint.transform.position;
             target.Location = new Vector3(centerLoc.x, SetDroneMovementHeight(centerLoc.y), centerLoc.z);
 
             // if we are some bit away from target location, increase speed towards max, or start decreasing towards 0.
@@ -159,18 +194,25 @@ namespace ZarkowTurretDefense.Scripts
             // if we are within distance to target, enable doing the action needed
             var newDistance = Vector3.Distance(_droneGameObject.transform.position, target.Location);
 
-            if (newDistance < (target.OnGatheritemDropReturnTrip == false ? DroneAttackRange : DroneAttackRange * 1.2f))
+            if (newDistance < (target.OnGatherItemDropReturnTrip == false ? DroneAttackRange : DroneAttackRange * 1.2f))
             {
                 UpdateDroneMode(TurretPatrolType.AttackTarget);
             }
             else
             {
-                UpdateDroneMode(TurretPatrolType.ScanTarget);
+                if (target.OnGatherItemDropReturnTrip == false)
+                {
+                    UpdateDroneMode(TurretPatrolType.ScanTarget);
+                }
+                else
+                {
+                    UpdateDroneMode(TurretPatrolType.NoTarget);
+                }
             }
 
             // AddDebugMsg($"{TurretTypeOfThisTurret}.MoveAndHandleGather({target.GetHashCode()}, {target.GatherItemDrop.gameObject.name}, returnTrip: {target.OnGatheritemDropReturnTrip}) -- distance: {newDistance} ({(newDistance / Range)}, {_droneMode}), speed: {_droneSpeed} ({(_droneSpeed * Time.deltaTime)}), new location: {_droneGameObject.transform.position}, target location: {target.Location} -- TTL: {target.TimeToLive}");
 
-            if (_droneTarget.OnGatheritemDropReturnTrip)
+            if (_droneTarget.OnGatherItemDropReturnTrip)
             {
                 SyncItemToDrone(_droneTarget.RigidBody, true, false);
 
@@ -181,7 +223,7 @@ namespace ZarkowTurretDefense.Scripts
             // item is not pickable, maybe because the item is already picked up by (other) player?
             if (_droneTarget.GatherItemDrop.CanPickup(false) == false)
             {
-                // the item may have been picked up already or swooped up by some mod in put in container etc - skip logging it out now
+                // the item may have been picked up already or swooped up by some mod and put in container etc - skip logging it out now
                 // AddDebugMsg($"{TurretTypeOfThisTurret}.MoveAndHandleGather - Target {_droneTarget.GatherItemDrop.name} is NOT Pickupable");
                 UpdateDroneMode(TurretPatrolType.NoTarget);
                 return true;
@@ -262,6 +304,10 @@ namespace ZarkowTurretDefense.Scripts
                 if (rangeToPiece <= MinimumRange)
                     continue;
 
+                // make sure the item is within the degree range - polus/minus 60 deg for a total of 120 degree field infront of turret
+                if (IsWithinDirection(item) == false)
+                    continue;
+
                 // make sure this target is NOT in the one being actively targeted by the gather drone already
                 if (_droneTarget != null)
                 {
@@ -287,6 +333,28 @@ namespace ZarkowTurretDefense.Scripts
 
             // inject higher time-spread of finding new items
             _updateTargetTimer += 5.0f;
+        }
+
+        private bool IsWithinDirection(ItemDrop item)
+        {
+            float maxAngle = 60.0f; // 120 deg, as it is -+ 60
+            float minDot = Mathf.Cos(maxAngle * Mathf.Deg2Rad);
+
+            Vector3 toTarget = item.transform.position - this.transform.position;
+
+            // safety
+            if (toTarget.sqrMagnitude < Mathf.Epsilon)
+                return false;
+
+            toTarget.Normalize();
+
+            if (Vector3.Dot(this.transform.forward, toTarget) >= minDot)
+            {
+                // Target is within -+60 deg
+                return true;
+            }
+
+            return false;
         }
 
         private bool IsItemInExclusionList(ItemDrop item, List<ItemDrop.ItemData> exclusionList)
@@ -417,15 +485,18 @@ namespace ZarkowTurretDefense.Scripts
             // AddDebugMsg($"GatherDroneTurret.LaunchProjectileAndRegisterHitPosition: Attempt to grab/drop item (ReturnLeg: {_droneTarget.OnGatheritemDropReturnTrip})");
 
             // if item is within range and available, grab it, put it at position under drone, send effect-pos of where item Was.
-            if (_droneTarget.OnGatheritemDropReturnTrip == false)
+            if (_droneTarget.OnGatherItemDropReturnTrip == false)
             {
                 var itemPosition = _droneTarget.GatherItemDrop.transform.position;
 
-                _droneTarget.OnGatheritemDropReturnTrip = true;
+                _droneTarget.OnGatherItemDropReturnTrip = true;
                 SyncItemToDrone(_droneTarget.RigidBody, true, false);
 
                 // tell other players the launch occur, what barrel to use and impact info, to draw effects...
                 _zNetView.InvokeRPC(ZNetView.Everybody, "ZTD_LaunchDroneCannonProjectile", itemPosition, Vector3.forward);
+
+                // turn off search-light
+                UpdateDroneMode(TurretPatrolType.NoTarget);
 
                 return;
             }
@@ -434,7 +505,7 @@ namespace ZarkowTurretDefense.Scripts
 
             // drop item by forcing de-sync against it
             SyncItemToDrone(_droneTarget.RigidBody, false, true);
-            
+
             _droneTarget.GatherItemDrop = null;
         }
 
@@ -456,7 +527,6 @@ namespace ZarkowTurretDefense.Scripts
                 if (turnOnUsageOfGravity)
                 {
                     targetRigidBody.isKinematic = false;
-                    targetRigidBody.linearVelocity = Vector3.zero;
                 }
 
                 // AddLogInfo($"{TurretTypeOfThisTurret} Carrying {targetRigidBody.gameObject.name} ({targetRigidBody.gameObject.GetInstanceID()}), {targetRigidBody.useGravity}/{targetRigidBody.isKinematic}");

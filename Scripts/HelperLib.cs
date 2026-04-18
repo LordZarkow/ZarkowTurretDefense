@@ -13,6 +13,7 @@ namespace ZarkowTurretDefense.Scripts
     {
         Gun,
         HeavyGun,
+        AdvancedGun,
         SignalTurret,
         LightGun,
         MissileGun,
@@ -29,6 +30,7 @@ namespace ZarkowTurretDefense.Scripts
     public enum BuildingpartType
     {
         Static,
+        HoverCart,
     }
 
     public static class HelperLib

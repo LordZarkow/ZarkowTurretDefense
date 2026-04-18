@@ -428,6 +428,40 @@
       }
     ]
   },
+    {
+    "name": "$piece_advanced_turret_mki",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/AdvancedTurret_MkI.prefab",
+    "description": "$piece_advanced_turret_mki_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "Workbench",
+    "enabled": true,
+    "type": "AdvancedGun",
+    "fireInterval": 0.5,
+    "fireDamage": 50,
+    "damageRadius": 1.0,
+    "rangedBluntDamage": 0,
+    "rangedPierceDamage": 7.5,
+    "rangedFireDamage": 7.5,
+    "projectileVelocity": 40,
+    "range": 50,
+    "minimumRange": 2,
+    "mustHaveLineOfSightToTrack": true,
+    "resources": [
+      {
+        "item": "FlametalNew",
+        "amount": 2
+      },
+      {
+        "item": "Iron",
+        "amount": 4
+      },
+      {
+        "item": "FineWood",
+        "amount": 10
+      }
+    ]
+  },
   {
     "name": "$piece_missile_turret",
     "bundleName": "turrets",
@@ -660,8 +694,8 @@
     "enabled": true,
     "type": "GatherDrone",
     "fireInterval": 1.0,
-    "range": 60,
-    "minimumRange": 10,
+    "range": 75,
+    "minimumRange": 6,
     "droneAttackRange": 2.4,
     "maximumNumberOfTrackedTargets": 10,
     "patrolCloseToTurret": true,

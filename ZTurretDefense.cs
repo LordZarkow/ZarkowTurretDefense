@@ -190,6 +190,10 @@ namespace ZarkowTurretDefense
                                 turret = prefab.AddComponent<HeavyGunTurret>();
                                 break;
 
+                            case TurretType.AdvancedGun:
+                                turret = prefab.AddComponent<AdvancedGunTurret>();
+                                break;
+
                             case TurretType.MissileGun:
                                 turret = prefab.AddComponent<MissileTurret>();
                                 break;
@@ -269,6 +273,10 @@ namespace ZarkowTurretDefense
                     var buildingpartType = (BuildingpartType)Enum.Parse(typeof(BuildingpartType), buildingpartConfig.type, true);
                     switch (buildingpartType)
                     {
+                        case BuildingpartType.HoverCart:
+                            // add custom hover script
+                            buildingpart = prefab.AddComponent<HoverCart>();
+                            break;
                         default:
                             buildingpart = prefab.AddComponent<BuildingpartBase>();
                             break;

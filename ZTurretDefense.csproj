@@ -69,6 +69,7 @@
     <Compile Include="Models\BuildingpartConfig.cs" />
     <Compile Include="Models\TurretConfig.cs" />
     <Compile Include="Properties\IgnoreAccessModifiers.cs" />
+    <Compile Include="Scripts\AdvancedGunTurret.cs" />
     <Compile Include="Scripts\Barrel.cs" />
     <Compile Include="Scripts\BuildingpartBase.cs" />
     <Compile Include="Scripts\DegreesSpecifier.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Scripts\GunTurret.cs" />
     <Compile Include="Scripts\HeavyGunTurret.cs" />
     <Compile Include="Scripts\HelperLib.cs" />
+    <Compile Include="Scripts\HoverCart.cs" />
     <Compile Include="Scripts\InertTurret.cs" />
     <Compile Include="Scripts\LightGunTurret.cs" />
     <Compile Include="Scripts\LoggerDroneTurret.cs" />

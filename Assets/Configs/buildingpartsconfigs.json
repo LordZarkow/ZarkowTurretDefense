@@ -202,5 +202,21 @@
         "amount": 5
       }
     ]
+  },
+  {
+    "name": "$piece_hovercart",
+    "bundleName": "turrets",
+    "prefabPath": "Assets/Prefabs/HoverCart.prefab",
+    "description": "$piece_hovercart_desc",
+    "pieceTable": "Hammer",
+    "craftingStation": "",
+    "type": "HoverCart",
+    "enabled": false,
+    "resources": [
+      {
+        "item": "Wood",
+        "amount": 1
+      }
+    ]
   }
 ]

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3668019539
+CRC: 2245325164
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a01b974a043e5bc343fb5e669e84c131
+    Hash: 780e594eeab47aea3e48f693dcf269a3
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3f65195a3e0f96a927f7acf6d4b9c9ff
+    Hash: 7553e070423dbbf340e7734433909fe0
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -42,7 +42,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 1790797106, guid: 02f806226319f1d4b8ae0232b57e8b19, type: 3}
 - Class: 114
+  Script: {fileID: 1541706127, guid: 02f806226319f1d4b8ae0232b57e8b19, type: 3}
+- Class: 114
   Script: {fileID: 2094620348, guid: 02f806226319f1d4b8ae0232b57e8b19, type: 3}
+- Class: 114
+  Script: {fileID: -1735741815, guid: 02f806226319f1d4b8ae0232b57e8b19, type: 3}
 - Class: 114
   Script: {fileID: 1521249158, guid: 02f806226319f1d4b8ae0232b57e8b19, type: 3}
 - Class: 115
@@ -93,6 +97,7 @@ Assets:
 - Assets/Prefabs/HeavyTurret_MkI.prefab
 - Assets/Prefabs/DroneTurret.prefab
 - Assets/Material/Drone_red.mat
+- Assets/Prefabs/AdvancedTurret_MkI.prefab
 - Assets/Material/Turret_Mine_Poison.mat
 - Assets/Material/Turret_Iron.mat
 - Assets/Material/Turret_Base_Orange.mat
@@ -152,6 +157,7 @@ Assets:
 - Assets/Material/Trail.mat
 - Assets/Prefabs/LargeGunImpact.prefab
 - Assets/Icons/Turret_MkIII.png
+- Assets/Prefabs/HoverCart.prefab
 - Assets/Icons/MultiMissileTurret.png
 - Assets/Material/LightStick_Yellow.mat
 - Assets/Prefabs/LightFlareEffect.prefab
