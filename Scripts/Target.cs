@@ -19,7 +19,7 @@ namespace ZarkowTurretDefense.Scripts
         public bool IsGatherItemOrder; // is a gather order
         public ItemDrop GatherItemDrop; // item to pick up
         public bool OnGatherItemDropReturnTrip; // we have picked up item, is now on way back to drop off (target location is now turret center)
-        public Rigidbody RigidBody;
+        public Rigidbody RigidBody; // to be able to turn on Kinematic during transport
 
         public bool IsTargetLoggerOrder; // is a TreeBase OR TreeLog Logging Order
         public TreeBase LoggerTreeBaseTarget;

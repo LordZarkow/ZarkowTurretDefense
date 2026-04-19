@@ -107,6 +107,11 @@ namespace ZarkowTurretDefense.Scripts
             }
         }
 
+        override protected bool UpdateAimInfoForCurrentTarget()
+        {
+            return HelperLib.UpdateAimInfoForCurrentTarget(_targetList[0], _turretAimPoint, _aimResult, _aimResultTempCalcHolder, ProjectileVelocity);
+        }
+
         override protected void TriggerTurretFiring()
         {
             // AddDebugMsg($"HeavyGunTurret.TriggerTurretFiring()");

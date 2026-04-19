@@ -49,7 +49,7 @@ namespace ZarkowTurretDefense.Scripts
             _rotationDefinitions.MaxRotationHorizontalRight = 90f;
             _rotationDefinitions.MaxRotationVerticalUp = 15.0f;
             _rotationDefinitions.MaxRotationVerticalDown = 20.0f;
-            _rotationDefinitions.RotationSpeed = 50.0f;
+            _rotationDefinitions.RotationSpeed = 60.0f;
 
             _rotationDefinitions.AllowedAimDeviance = 15.0f;
 
@@ -100,6 +100,11 @@ namespace ZarkowTurretDefense.Scripts
                 projectile.ProjectileGameObject.transform.position = _netDataObjectHandler.Data.GetVec3($"projectile_{projectile.Id}.position", Vector3.zero);
                 projectile.ProjectileGameObject.transform.rotation = _netDataObjectHandler.Data.GetQuaternion($"projectile_{projectile.Id}.rotation", Quaternion.identity);
             }
+        }
+
+        override protected bool UpdateAimInfoForCurrentTarget()
+        {
+            return HelperLib.UpdateAimInfoForCurrentTarget(_targetList[0], _turretAimPoint, _aimResult, _aimResultTempCalcHolder, ProjectileVelocity);
         }
 
         override protected void TriggerTurretFiring()

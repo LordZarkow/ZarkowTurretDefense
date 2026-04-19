@@ -59,7 +59,7 @@ namespace ZarkowTurretDefense.Scripts
             }
         }
 
-        static public bool UpdateAimInfoForCurrentTarget(Target primaryTarget, GameObject turretAimPoint, DegreesSpecifier aimResult, DegreesSpecifier aimResultTempCalcHolder)
+        static public bool UpdateAimInfoForCurrentTarget(Target primaryTarget, GameObject turretAimPoint, DegreesSpecifier aimResult, DegreesSpecifier aimResultTempCalcHolder, float projectileSpeed = 1000f)
         {
             // if for some reason this target lacks a character, quit out
             if (primaryTarget.Character == null)
@@ -68,7 +68,7 @@ namespace ZarkowTurretDefense.Scripts
             }
 
             var targetPosition = primaryTarget.IsMoveOrder ? primaryTarget.Location : primaryTarget.Character.GetCenterPoint(); // _target.m_eye.position
-            Vector3 aimPoint = MathHelper.FirstOrderIntercept(turretAimPoint.transform.position, Vector3.zero, 1000f, targetPosition, primaryTarget.IsMoveOrder ? Vector3.zero : primaryTarget.Character.m_currentVel);
+            Vector3 aimPoint = MathHelper.FirstOrderIntercept(turretAimPoint.transform.position, Vector3.zero, projectileSpeed, targetPosition, primaryTarget.IsMoveOrder ? Vector3.zero : primaryTarget.Character.m_currentVel);
 
             aimResultTempCalcHolder.Distance = Vector3.Distance(turretAimPoint.transform.position, targetPosition);
 
@@ -91,6 +91,7 @@ namespace ZarkowTurretDefense.Scripts
             return true;
         }
 
+        // purpose clone of function
         static public bool UpdateAimInfoForCurrentPieceTarget(Target primaryTarget, GameObject droneAimPoint, DegreesSpecifier aimResult, DegreesSpecifier aimResultTempCalcHolder)
         {
             // if for some reason this target lacks a character, quit out
@@ -123,6 +124,7 @@ namespace ZarkowTurretDefense.Scripts
             return true;
         }
 
+        // purpose clone of function
         static public bool UpdateAimInfoForCurrentItemDropTarget(Target primaryTarget, GameObject droneAimPoint, DegreesSpecifier aimResult, DegreesSpecifier aimResultTempCalcHolder)
         {
             // if for some reason this target lacks a character, quit out
@@ -155,6 +157,7 @@ namespace ZarkowTurretDefense.Scripts
             return true;
         }
 
+        // purpose clone of function
         static public bool UpdateAimInfoForCurrentTreeTarget(Target primaryTarget, GameObject droneAimPoint, DegreesSpecifier aimResult, DegreesSpecifier aimResultTempCalcHolder)
         {
             var targetPosition = (primaryTarget.LoggerTreeBaseTarget != null) 
