@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2245325164
+CRC: 2299137666
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 780e594eeab47aea3e48f693dcf269a3
+    Hash: 6ac8b7b57dd54016545b974fc0a00cfd
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7553e070423dbbf340e7734433909fe0
@@ -77,6 +77,7 @@ Assets:
 - Assets/Icons/Turret_MkVII.png
 - Assets/Prefabs/LightStick.prefab
 - Assets/Prefabs/RepairDroneTurret.prefab
+- Assets/Icons/AdvancedTurret_MkI.png
 - Assets/Icons/MissileTurret.png
 - Assets/Prefabs/MissileImpactEffect_Resized.prefab
 - Assets/Icons/LightTurret.png

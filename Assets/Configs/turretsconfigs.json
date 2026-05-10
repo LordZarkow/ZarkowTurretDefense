@@ -450,15 +450,15 @@
     "resources": [
       {
         "item": "FlametalNew",
-        "amount": 2
+        "amount": 4
       },
       {
         "item": "Iron",
         "amount": 4
       },
       {
-        "item": "FineWood",
-        "amount": 10
+        "item": "SurtlingCore",
+        "amount": 4
       }
     ]
   },

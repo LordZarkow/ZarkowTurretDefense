@@ -33,6 +33,9 @@
   "piece_heavy_turret_mkiii": "Heavy Turret Mk. III",
   "piece_heavy_turret_mkiii_desc": "Mk.III Heavy Automated Sentry Gun",
 
+  "piece_advanced_turret_mki": "Advanced Turret Mk. I",
+  "piece_advanced_turret_mki_desc": "Mk.I Advanced Automated Sentry Gun",
+
   "piece_missile_turret": "Missile Turret",
   "piece_missile_turret_desc": "Automated Sentry Gun with an agile laser-guided Missile",
   "piece_quad_missile_turret": "Quad Missile Turret",

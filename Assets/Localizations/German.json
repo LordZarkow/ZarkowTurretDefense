@@ -33,6 +33,9 @@
   "piece_heavy_turret_mkiii": "Schwerer Turm Mk. III",
   "piece_heavy_turret_mkiii_desc": "Mk.III Schwerer automatisierter Geschützturm",
 
+  "piece_advanced_turret_mki": "Fortgeschrittener Turm Mk. I",
+  "piece_advanced_turret_mki_desc": "Mk.I Fortschrittliches Automatisiertes Geschütz",
+
   "piece_missile_turret": "Raketenturm",
   "piece_missile_turret_desc": "Automatisierter Geschützturm mit einer agilen lasergelenkten Rakete",
   "piece_quad_missile_turret": "Vierfach-Raketenturm",

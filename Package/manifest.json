@@ -1,6 +1,6 @@
 ﻿{
   "name": "Zarkow_Turret_Defense",
-  "version_number": "1.2.1020",
+  "version_number": "1.3.1050",
   "website_url": "http://www.digitalsoftware.se/community/",
   "description": "Adds ability to build defensive turrets in several versions to turn raid-events into fun Turret Defense moments",
   "dependencies": [

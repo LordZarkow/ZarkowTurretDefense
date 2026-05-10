@@ -12,18 +12,17 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-1.2.1020
+1.3.1050
 
-Added Marina Iron Structure, Leaning Iron Structure and Wide Leaning Iron Structure.
+Added Advanced Turret Mk. I.
 
-Logger Drone now temporarily give up if a felling takes too long, as it could indicate the tree or log is behind cover.
+Gather Turret's Drone will no longer try to grab items carried by another Gather Turret's Drone.
 
-Logger Drone and Fishing Drone no longer requires Workbench to be built close to it.
+Gather Turret's Drone now only gather what is within an arc of +-60 degrees from the front, allowing one to chain gathers.
 
-Training Dummy is now fully ignored by turrets.
+Gather Turret's Drone now drop the carried item 'behind' the turret, in a smaller pile than before.
 
-All turrets and added building pieces now have snappoints, some have multiple where it makes sense.
-
+Advanced and Heavy Turrets now properly predict the intersect point based on the targets velocity and the projectiles real velocity.
 
 ## Content
 
@@ -225,6 +224,17 @@ Damage, impact: 14.5 Blunt, 24.0 Pierce, 24.0 Fire
 Damage, ranged: 9.5 Pierce, 9.5 Fire
 Explosion range: 2.75
 Fire interval: 0.77 (DPS: 81.17 + 24.68 per barrel)
+
+Name: Advanced Turret Mk. I
+Rotation: -90/+90
+Tilt: -20/+15
+Rotation/Tilt speed: 60
+Range: 50
+Minimum range: 2
+Damage, impact: 50.0 Fire
+Damage, ranged: 7.5 Pierce, 7.5 Fire
+Explosion range: 1.0
+Fire interval: 0.5 (DPS: 100 + 15)
 
 Name: Missile Turret
 Rotation: -120/+120
