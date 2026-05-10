@@ -1,3 +1,10 @@
+- Version 1.3.1050
+Added Advanced Turret Mk. I.
+Gather Turret's Drone will no longer try to grab items carried by another Gather Turret's Drone.
+Gather Turret's Drone now only gather what is within an arc of +-60 degrees from the front, allowing one to chain gathers.
+Gather Turret's Drone now drop the carried item 'behind' the turret, in a smaller pile than before.
+Advanced and Heavy Turrets now properly predict the intersect point based on the targets velocity and the projectiles real velocity.
+
 - Version 1.2.1020
 Added Marina Iron Structure, Leaning Iron Structure and Wide Leaning Iron Structure.
 Logger Drone now temporarily give up if a felling takes too long, as it could indicate the tree or log is behind cover.

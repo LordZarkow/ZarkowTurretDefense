@@ -40,7 +40,8 @@ Below turrets require a Workbench nearby:
 * Heavy Turret Mk. I   --  2x BlackMetal, 4x Iron, 10x FineWood
 * Heavy Turret Mk. II  --  2x BlackMarble, 4x Iron, 10x FineWood
 * Heavy Turret Mk. III --  2x FlametalNew, 4x Iron, 10x FineWood
-
+* Advanced Turret Mk. I--  4x FlametalNew, 4x Iron, 4x SurtlingCore
+ 
 * Missile Turret       --  1x SurtlingCore, 2x Bronze, 4x FineWood
 * Quad Missile Turret  --  3x SurtlingCore, 3x Bronze, 4x FineWood
 * Multi Missile Turret --  4x SurtlingCore, 4x Silver, 4x FineWood
