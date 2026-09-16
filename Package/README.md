@@ -12,17 +12,9 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-1.3.1050
+1.4.1100
 
-Added Advanced Turret Mk. I.
-
-Gather Turret's Drone will no longer try to grab items carried by another Gather Turret's Drone.
-
-Gather Turret's Drone now only gather what is within an arc of +-60 degrees from the front, allowing one to chain gathers.
-
-Gather Turret's Drone now drop the carried item 'behind' the turret, in a smaller pile than before.
-
-Advanced and Heavy Turrets now properly predict the intersect point based on the targets velocity and the projectiles real velocity.
+Upgraded depends to match latest due to release of 1.0 of the game.
 
 ## Content
 
@@ -40,7 +32,8 @@ Below turrets require a Workbench nearby:
 * Heavy Turret Mk. I   --  2x BlackMetal, 4x Iron, 10x FineWood
 * Heavy Turret Mk. II  --  2x BlackMarble, 4x Iron, 10x FineWood
 * Heavy Turret Mk. III --  2x FlametalNew, 4x Iron, 10x FineWood
-
+* Advanced Turret Mk. I--  4x FlametalNew, 4x Iron, 4x SurtlingCore
+ 
 * Missile Turret       --  1x SurtlingCore, 2x Bronze, 4x FineWood
 * Quad Missile Turret  --  3x SurtlingCore, 3x Bronze, 4x FineWood
 * Multi Missile Turret --  4x SurtlingCore, 4x Silver, 4x FineWood

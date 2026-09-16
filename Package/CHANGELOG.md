@@ -1,3 +1,6 @@
+- Version 1.4.1100
+Upgraded depends to match latest due to release of 1.0 of the game.
+
 - Version 1.3.1050
 Added Advanced Turret Mk. I.
 Gather Turret's Drone will no longer try to grab items carried by another Gather Turret's Drone.
