@@ -1,3 +1,7 @@
+- Version 1.5.1120
+The design-time audio-levels for turrets and drones should now be respected instead of flattened when global audio level was applied.
+The Build and Destroy sound-effect sound-volume now respect the game audio settings.
+
 - Version 1.4.1100
 Upgraded depends to match latest due to release of 1.0 of the game.
 

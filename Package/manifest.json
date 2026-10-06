@@ -1,10 +1,10 @@
 ﻿{
-  "name": "Zarkow_Turret_Defense",
-  "version_number": "1.4.1100",
-  "website_url": "http://www.digitalsoftware.se/community/",
-  "description": "Adds ability to build defensive turrets in several versions to turn raid-events into fun Turret Defense moments",
-  "dependencies": [
-    "denikson-BepInExPack_Valheim-5.4.2350",
-    "ValheimModding-Jotunn-2.30.0"
-  ]
+    "name": "Zarkow_Turret_Defense",
+    "version_number": "1.5.1120",
+    "website_url": "http://www.digitalsoftware.se/community/",
+    "description": "Adds ability to build defensive turrets in several versions to turn raid-events into fun Turret Defense moments",
+    "dependencies": [
+        "denikson-BepInExPack_Valheim-5.4.2350",
+        "ValheimModding-Jotunn-2.30.0"
+    ]
 }
