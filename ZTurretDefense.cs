@@ -23,7 +23,7 @@ namespace ZarkowTurretDefense
     {
         public const string PluginGUID = "com.digitalsoftware.zarkowturretdefense";
         public const string PluginName = "Zarkow's Turret Defense";
-        public const string PluginVersion = "1.4.1100";
+        public const string PluginVersion = "1.5.1120";
 
         // settings from config file
 

@@ -114,6 +114,7 @@ namespace ZarkowTurretDefense.Scripts
         protected int _nextBarrelIdToUse;
 
         private AudioSource[] _audioSources;
+        private float[] _authoredVolumes;          // per-source mix as set in the prefab
 
         // private GameObject _turretBase;
         protected GameObject _turretTurn;
@@ -159,12 +160,11 @@ namespace ZarkowTurretDefense.Scripts
             // AddDebugMsg($"{TurretTypeOfThisTurret}.Awake()");
 
             _audioSources = GetComponentsInChildren<AudioSource>(true);
-
-            // AddDebugMsg($"Number of AudioSources found: {_audioSources.Length}");
-
-            foreach (var audioSource in _audioSources)
+            _authoredVolumes = new float[_audioSources.Length];
+            for (var i = 0; i < _audioSources.Length; i++)
             {
-                audioSource.outputAudioMixerGroup = AudioMan.instance.m_ambientMixer;
+                _authoredVolumes[i] = _audioSources[i].volume;
+                _audioSources[i].outputAudioMixerGroup = AudioMan.instance.m_ambientMixer;
             }
 
             SetVolume();
@@ -456,11 +456,16 @@ namespace ZarkowTurretDefense.Scripts
 
         private void SetVolume()
         {
-            // AddDebugMsg($"Sound Volume: {ZTurretDefense.TurretVolume.Value} to {_audioSources.Length} AudioSources");
+            // AddLogInfo($"Set Volume: {ZTurretDefense.TurretVolume.Value} to {_audioSources.Length} AudioSources on {TurretTypeOfThisTurret}: {gameObject.name}");
 
-            foreach (var audioSource in _audioSources)
+            var multiplier = ZTurretDefense.TurretVolume.Value / 100.0f;
+            for (var i = 0; i < _audioSources.Length; i++)
             {
-                audioSource.volume = ZTurretDefense.TurretVolume.Value / 100.0f;
+                if (_audioSources[i] != null)                // a source may have been destroyed
+                {
+                    _audioSources[i].volume = _authoredVolumes[i] * multiplier;
+                    // AddLogInfo($"Set Volume: {ZTurretDefense.TurretVolume.Value} times {_authoredVolumes[i]} for {_audioSources[i].volume} to AudioSource {_audioSources[i].name}");
+                }
             }
         }
 
