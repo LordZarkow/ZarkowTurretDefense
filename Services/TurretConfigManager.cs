@@ -19,7 +19,13 @@ namespace ZarkowTurretDefense.Services
                 jsonResourceFile = reader.ReadToEnd(); //Make string equal to full file
             }
 
-            return SimpleJson.SimpleJson.DeserializeObject<List<TurretConfig>>(jsonResourceFile);
+            return Parse(jsonResourceFile);
+        }
+
+        /// <summary>Parses a turret list from JSON text (built-in resource or a user's override file).</summary>
+        public static List<TurretConfig> Parse(string json)
+        {
+            return SimpleJson.SimpleJson.DeserializeObject<List<TurretConfig>>(json);
         }
     }
 }

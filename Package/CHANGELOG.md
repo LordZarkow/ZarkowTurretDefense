@@ -1,3 +1,12 @@
+- Version 1.6.1130
+The turret list can be replaced by a JSON file of the same format as the built-in one (setting 'Turret List File', default BepInEx/config/com.digitalsoftware.zarkowturretdefense.turrets.json).
+The building-part list can be replaced the same way (setting 'Buildingpart List File').
+A list file replaces the built-in list completely; a turret or building part left out of it does not exist in the game.
+Values in a list file are checked at startup; impossible values are corrected and reported in the log, and an unreadable file falls back to the built-in list.
+The built-in lists can be exported to BepInEx/config as *.default.json with the setting 'Export Built-in Config Files', as a starting point for a list file.
+A dedicated server sends its list files to every connecting client, so stats, costs and available pieces match the server.
+Added a Support section to the README with a Ko-fi link; the mod stays free.
+
 - Version 1.5.1120
 The design-time audio-levels for turrets and drones should now be respected instead of flattened when global audio level was applied.
 The Build and Destroy sound-effect sound-volume now respect the game audio settings.

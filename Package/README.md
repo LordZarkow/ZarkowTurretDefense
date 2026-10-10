@@ -12,9 +12,15 @@ Mod tested primarily in singelplayer game and have been designed to work in mult
 
 ## Version
 
-1.4.1100
+1.6.1130
 
-Upgraded depends to match latest due to release of 1.0 of the game.
+The turret list can be replaced by a JSON file of the same format as the built-in one (setting 'Turret List File', default BepInEx/config/com.digitalsoftware.zarkowturretdefense.turrets.json).
+The building-part list can be replaced the same way (setting 'Buildingpart List File').
+A list file replaces the built-in list completely; a turret or building part left out of it does not exist in the game.
+Values in a list file are checked at startup; impossible values are corrected and reported in the log, and an unreadable file falls back to the built-in list.
+The built-in lists can be exported to BepInEx/config as *.default.json with the setting 'Export Built-in Config Files', as a starting point for a list file.
+A dedicated server sends its list files to every connecting client, so stats, costs and available pieces match the server.
+Added a Support section to the README with a Ko-fi link; the mod stays free.
 
 ## Content
 
@@ -96,6 +102,24 @@ Additional notes for turrets that use missiles:
 * An exploding missile may hit the same target multiple times if it is a Large target, such as Trolls, as they have multiple collisionmeshes (body parts).
 * When the Target is more than 20 meters away the missile will take a fly-above pattern at 12 meters above for a top-down attack.
 * If the Target is 'flying' the missile will not initiate a top-down attack.
+
+## Custom turret and building-part lists
+
+The turrets and building parts (which pieces exist, their stats and build costs) are defined in two JSON lists built into the mod. You can replace either list with your own file. Your file is then the complete list: everything you want in the game must be in it, and anything you leave out is not in the game. That makes removing pieces easy, for example a server that wants no drones at all simply has a turret list without the drone entries.
+
+1. Export the built-in lists: in `BepInEx/config/com.digitalsoftware.zarkowturretdefense.cfg` set `Export Built-in Config Files = true` (or use Configuration Manager) and start the game once. The mod writes `com.digitalsoftware.zarkowturretdefense.turrets.default.json` and `com.digitalsoftware.zarkowturretdefense.buildingparts.default.json` next to the .cfg file. Set the setting back to false afterwards, or the files are rewritten on every start. The same two files are in this repository under `Assets/Configs`.
+2. Make your list from the exported file, never from a single entry: rename `...turrets.default.json` to `com.digitalsoftware.zarkowturretdefense.turrets.json` (or copy it under that name), then delete the entries you do not want and change the values you want changed. Keep the entries you want unchanged exactly as they are. The same goes for `...buildingparts.json`.
+3. Start the game. The log says which list is in use, names the built-in entries your file leaves out, and reports any values it had to correct.
+
+To use another file name or location, put it in the `Turret List File` or `Buildingpart List File` setting: a name is looked up in `BepInEx/config`, an absolute path is used as given, and an empty setting means the built-in list.
+
+Rules:
+
+- The file replaces the built-in list completely. A turret you leave out is not in the game, and copies of it that were already built are hidden until the entry is back.
+- After a mod update, compare your file with a fresh export to pick up new turrets or fields; your file does not change by itself.
+- The Damage Modifier and Cost Modifier settings still apply on top of the values in the file.
+- On a dedicated server the server's file is used by every player; clients do not need the file. A turret the server does not list cannot be built.
+- A file that cannot be read is ignored with an error in the log, and the built-in list is used.
 
 ## Technical details
 
@@ -321,3 +345,9 @@ If the mod is missing from your favorite mod-site, contact the author and it wil
 
 For any help, support, feedback or to give words of encouragement, please join the Discord: https://discord.gg/fyqtxZt
 
+
+## Support the mod
+
+Zarkow Turret Defense is free and will stay free. If it has earned a place in your world and you want to help keep it updated quickly after Valheim patches, you can buy a coffee on Ko-fi: https://ko-fi.com/zarkow
+
+Supporters get early builds on patch day and a say in what comes next. Everyone gets the mod.

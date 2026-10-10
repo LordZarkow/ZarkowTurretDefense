@@ -1,13 +1,16 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
+using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
 using ZarkowTurretDefense.Models;
 using ZarkowTurretDefense.Services;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ZarkowTurretDefense
 {
@@ -23,7 +26,7 @@ namespace ZarkowTurretDefense
     {
         public const string PluginGUID = "com.digitalsoftware.zarkowturretdefense";
         public const string PluginName = "Zarkow's Turret Defense";
-        public const string PluginVersion = "1.5.1120";
+        public const string PluginVersion = "1.6.1130";
 
         // settings from config file
 
@@ -42,11 +45,38 @@ namespace ZarkowTurretDefense
         public static ConfigEntry<bool> ShowHeightMapDebugLogEntries;
         public static ConfigEntry<bool> ShowObjectDestroyDebugLogEntries;
 
+        public static ConfigEntry<bool> ExportBuiltinConfigFiles;
+        public static ConfigEntry<string> TurretListFile;
+        public static ConfigEntry<string> BuildingpartListFile;
+
         // end settings from config file
 
         private readonly Harmony _harmony = new Harmony(PluginGUID);
         
         private readonly Dictionary<string, AssetBundle> _assetBundles = new Dictionary<string, AssetBundle>();
+
+        // the lists in use (built-in, or the user's override file) and what was registered from them
+        private List<TurretConfig> _turretConfigs = new List<TurretConfig>();
+        private List<BuildingpartConfig> _buildingpartConfigs = new List<BuildingpartConfig>();
+        private readonly Dictionary<string, RegisteredTurret> _turrets = new Dictionary<string, RegisteredTurret>();
+        private readonly Dictionary<string, RegisteredBuildingpart> _buildingparts = new Dictionary<string, RegisteredBuildingpart>();
+        private string _turretOverrideText = string.Empty;        // text of the list files as read at startup; what a server sends to clients
+        private string _buildingpartOverrideText = string.Empty;
+        private string _lastAppliedTurretJson;
+        private string _lastAppliedBuildingpartJson;
+        private CustomRPC _listSyncRpc;
+
+        private class RegisteredTurret
+        {
+            public GameObject Prefab;
+            public TurretBase Turret;
+        }
+
+        private class RegisteredBuildingpart
+        {
+            public GameObject Prefab;
+            public BuildingpartBase Buildingpart;
+        }
 
         // Use this class to add your own localization to the game
         // https://valheim-modding.github.io/Jotunn/tutorials/localization.html
@@ -72,6 +102,25 @@ namespace ZarkowTurretDefense
             ShowHeightMapDebugLogEntries = Config.Bind("Debug", "Show HeightMap Debug Log Entries", false, new ConfigDescription("Debug: Show HeightMap Warning and Info log lines", new AcceptableValueRange<bool>(false, true)));
             ShowObjectDestroyDebugLogEntries = Config.Bind("Debug", "Show Object Destroy Debug Log Entries", false, new ConfigDescription("Debug: Show log lines when an object from the mod pack is de-loaded as player move out of range", new AcceptableValueRange<bool>(false, true)));
 
+            // custom lists: a user file in BepInEx/config replaces the built-in turret or building-part list (see README)
+            ExportBuiltinConfigFiles = Config.Bind("CustomLists", "Export Built-in Config Files", false, new ConfigDescription("When true, the built-in turret and building-part lists are written to BepInEx/config as *.default.json at startup, to copy from when making an override file. See README."));
+            TurretListFile = Config.Bind("CustomLists", "Turret List File", ConfigFileService.DefaultOverrideFileName(ConfigFileService.TurretsKind), new ConfigDescription("JSON file with the complete turret list; when it exists it replaces the built-in list. A file name is looked up in BepInEx/config, an absolute path is used as given. Empty, or no such file: the built-in list. On a server the server's file is sent to every client."));
+            BuildingpartListFile = Config.Bind("CustomLists", "Buildingpart List File", ConfigFileService.DefaultOverrideFileName(ConfigFileService.BuildingpartsKind), new ConfigDescription("JSON file with the complete building-part list; when it exists it replaces the built-in list. A file name is looked up in BepInEx/config, an absolute path is used as given. Empty, or no such file: the built-in list. On a server the server's file is sent to every client."));
+
+            if (ExportBuiltinConfigFiles.Value)
+            {
+                ConfigFileService.ExportBuiltin(ConfigFileService.TurretsKind, ConfigFileService.TurretsResource);
+                ConfigFileService.ExportBuiltin(ConfigFileService.BuildingpartsKind, ConfigFileService.BuildingpartsResource);
+            }
+
+            _turretOverrideText = ConfigFileService.ReadOverrideText(ConfigFileService.TurretsKind, TurretListFile.Value);
+            _buildingpartOverrideText = ConfigFileService.ReadOverrideText(ConfigFileService.BuildingpartsKind, BuildingpartListFile.Value);
+            _lastAppliedTurretJson = _turretOverrideText;
+            _lastAppliedBuildingpartJson = _buildingpartOverrideText;
+
+            _turretConfigs = SelectTurretConfigs(_turretOverrideText);
+            _buildingpartConfigs = SelectBuildingpartConfigs(_buildingpartOverrideText);
+
             LoadAssetBundles();
 
             // add all known localizations
@@ -87,6 +136,11 @@ namespace ZarkowTurretDefense
             AddBuildingParts();
 
             UnloadAssetBundles();
+
+            // a server sends its list files to every connecting client before the world loads (Jotunn initial
+            // synchronization); the client then re-applies stats, costs and availability to what it registered
+            _listSyncRpc = NetworkManager.Instance.AddRPC("ZarkowTurretDefense_CustomLists", ListSyncServerReceive, ListSyncClientReceive);
+            SynchronizationManager.Instance.AddInitialSynchronization(_listSyncRpc, BuildListSyncPackage);
 
             _harmony.PatchAll();
 
@@ -136,8 +190,7 @@ namespace ZarkowTurretDefense
         {
             Jotunn.Logger.LogInfo($"### --- Added Turrets ---");
 
-            var turretConfigs = new List<TurretConfig>();
-            turretConfigs.AddRange(TurretConfigManager.LoadTurretConfigJsonFromResource("ZarkowTurretDefense.Assets.Configs.turretsconfigs.json"));
+            var turretConfigs = _turretConfigs;   // selected in Awake: built-in list or the user's override file
 
             turretConfigs.ForEach(turretConfig =>
             {
@@ -236,6 +289,8 @@ namespace ZarkowTurretDefense
                         Jotunn.Logger.LogDebug($"### Add piece to PieceManager");
                         PieceManager.Instance.AddPiece(turretPiece);
 
+                        _turrets[turretConfig.name] = new RegisteredTurret { Prefab = prefab, Turret = turret };
+
                         Jotunn.Logger.LogDebug($"### --- Turret Added ---");
                     } // if DO we have prefab in asset bundle
                 }
@@ -246,8 +301,7 @@ namespace ZarkowTurretDefense
         {
             Jotunn.Logger.LogInfo($"### --- Added BuildingParts ---");
 
-            var buildingpartsConfigs = new List<BuildingpartConfig>();
-            buildingpartsConfigs.AddRange(BuildingpartConfigManager.LoadBuildingpartConfigJsonFromResource("ZarkowTurretDefense.Assets.Configs.buildingpartsconfigs.json"));
+            var buildingpartsConfigs = _buildingpartConfigs;   // selected in Awake: built-in list or the user's override file
 
             buildingpartsConfigs.ForEach(buildingpartConfig =>
             {
@@ -291,10 +345,141 @@ namespace ZarkowTurretDefense
                     Jotunn.Logger.LogDebug($"### Add piece to PieceManager");
                     PieceManager.Instance.AddPiece(buildPiece);
 
+                    _buildingparts[buildingpartConfig.name] = new RegisteredBuildingpart { Prefab = prefab, Buildingpart = buildingpart };
+
                     Jotunn.Logger.LogDebug($"### --- BuildingPart Added ---");
                 }
             });
         } // AddBuildingParts
+
+        private static List<TurretConfig> SelectTurretConfigs(string overrideJson)
+        {
+            return ConfigFileService.SelectList<TurretConfig>(ConfigFileService.TurretsKind, ConfigFileService.TurretsResource, overrideJson,
+                TurretConfigManager.Parse, config => config.name, ConfigValidation.ValidateTurrets);
+        }
+
+        private static List<BuildingpartConfig> SelectBuildingpartConfigs(string overrideJson)
+        {
+            return ConfigFileService.SelectList<BuildingpartConfig>(ConfigFileService.BuildingpartsKind, ConfigFileService.BuildingpartsResource, overrideJson,
+                BuildingpartConfigManager.Parse, config => config.name, ConfigValidation.ValidateBuildingparts);
+        }
+
+        private ZPackage BuildListSyncPackage(ZNetPeer peer)
+        {
+            var package = new ZPackage();
+            package.Write(_turretOverrideText ?? string.Empty);
+            package.Write(_buildingpartOverrideText ?? string.Empty);
+            return package;
+        }
+
+        private IEnumerator ListSyncServerReceive(long sender, ZPackage package)
+        {
+            // clients never send lists; anything arriving on the server is ignored
+            yield break;
+        }
+
+        private IEnumerator ListSyncClientReceive(long sender, ZPackage package)
+        {
+            var turretText = package.ReadString();
+            var buildingpartText = package.ReadString();
+            Jotunn.Logger.LogInfo("### Config: turret and building-part lists received from the server, applying");
+            ReapplyTurretConfigs(turretText);
+            ReapplyBuildingpartConfigs(buildingpartText);
+            yield break;
+        }
+
+        /// <summary>
+        /// Applies a (synced) turret list to what was registered at startup: stats and costs for listed
+        /// turrets, build-menu removal for unlisted ones. A turret in the list that was not registered at
+        /// startup cannot be added without a restart; that is logged.
+        /// </summary>
+        private void ReapplyTurretConfigs(string overrideJson)
+        {
+            if (overrideJson == _lastAppliedTurretJson)
+            {
+                return;
+            }
+            _lastAppliedTurretJson = overrideJson;
+
+            _turretConfigs = SelectTurretConfigs(overrideJson);
+
+            var byName = new Dictionary<string, TurretConfig>();
+            foreach (var config in _turretConfigs)
+            {
+                if (!string.IsNullOrEmpty(config.name) && !byName.ContainsKey(config.name))
+                {
+                    byName.Add(config.name, config);
+                }
+            }
+
+            foreach (var registered in _turrets)
+            {
+                var piece = PieceManager.Instance.GetPiece(registered.Value.Prefab.name);
+                TurretConfig config;
+                if (byName.TryGetValue(registered.Key, out config))
+                {
+                    registered.Value.Turret.Initialize(config);   // prefab component: new placements and reloaded worlds
+                    if (piece != null)
+                    {
+                        piece.Piece.m_resources = new PieceConfig { Requirements = config.resources.Select(TurretConfigRequirement.Convert).ToArray() }.GetRequirements();
+                        piece.Piece.m_enabled = config.enabled;
+                    }
+                }
+                else if (piece != null)
+                {
+                    piece.Piece.m_enabled = false;   // not in the active list: cannot be built here
+                }
+            }
+
+            foreach (var name in byName.Keys.Except(_turrets.Keys))
+            {
+                Jotunn.Logger.LogWarning($"### Config 'turrets': '{name}' is in the active list but was not registered at startup; restart with the same list to use it");
+            }
+        }
+
+        private void ReapplyBuildingpartConfigs(string overrideJson)
+        {
+            if (overrideJson == _lastAppliedBuildingpartJson)
+            {
+                return;
+            }
+            _lastAppliedBuildingpartJson = overrideJson;
+
+            _buildingpartConfigs = SelectBuildingpartConfigs(overrideJson);
+
+            var byName = new Dictionary<string, BuildingpartConfig>();
+            foreach (var config in _buildingpartConfigs)
+            {
+                if (!string.IsNullOrEmpty(config.name) && !byName.ContainsKey(config.name))
+                {
+                    byName.Add(config.name, config);
+                }
+            }
+
+            foreach (var registered in _buildingparts)
+            {
+                var piece = PieceManager.Instance.GetPiece(registered.Value.Prefab.name);
+                BuildingpartConfig config;
+                if (byName.TryGetValue(registered.Key, out config))
+                {
+                    registered.Value.Buildingpart.Initialize(config);
+                    if (piece != null)
+                    {
+                        piece.Piece.m_resources = new PieceConfig { Requirements = config.resources.Select(BuildingpartConfigRequirement.Convert).ToArray() }.GetRequirements();
+                        piece.Piece.m_enabled = config.enabled;
+                    }
+                }
+                else if (piece != null)
+                {
+                    piece.Piece.m_enabled = false;
+                }
+            }
+
+            foreach (var name in byName.Keys.Except(_buildingparts.Keys))
+            {
+                Jotunn.Logger.LogWarning($"### Config 'buildingparts': '{name}' is in the active list but was not registered at startup; restart with the same list to use it");
+            }
+        }
 
     }
 }

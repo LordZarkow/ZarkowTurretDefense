@@ -95,6 +95,7 @@
     <Compile Include="Scripts\Target.cs" />
     <Compile Include="Scripts\Trail.cs" />
     <Compile Include="Services\BuildingpartConfigManager.cs" />
+    <Compile Include="Services\ConfigFileService.cs" />
     <Compile Include="Services\TurretConfigManager.cs" />
     <Compile Include="ZTurretDefense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
